@@ -73,6 +73,14 @@ include 'koneksi.php';
 </div>
 
 <?php 
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "mcm";
+
+// Create connection
+$koneksi = new mysqli($servername, $username, $password, $dbname);
+
 
 //jika ada tombol login (tombal login ditekan)
 if (isset($_POST["login"])) {
