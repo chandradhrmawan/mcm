@@ -87,23 +87,23 @@ endif;
     <p class="numb"><strong>No <?=$no?></strong></p>
     <p class="section-description"><?=$key[1]?> </p>
     <input type="hidden" name="soal[<?=$key[0]?>]" value="<?=$key[0]?>">
-    <input type="hidden" name="jawaban[<?=$key[0]?>]" value="<?=$key[6]?>">
+    <input type="hidden" name="jawaban[<?=$key[0]?>]" value="<?=$key[7]?>">
     <input type="hidden" name="my_val" value="soal">
     <input type="hidden" name="id_user" value="<?=$id_user?>">
     <div class="form-group ans">
-        <label><input type="radio" name="jawab[<?=$key[0]?>]" value="<?=$key[2]?>"> <?=$key[2]?></label>
+        <label><input type="radio" name="jawab[<?=$key[0]?>]" value="a"> A. <?=$key[2]?></label>
     </div>
     <div class="form-group ans">
-        <label><input type="radio" name="jawab[<?=$key[0]?>]" value="<?=$key[3]?>"> <?=$key[3]?></label>
+        <label><input type="radio" name="jawab[<?=$key[0]?>]" value="b"> B. <?=$key[3]?></label>
     </div>
     <div class="form-group ans">
-        <label><input type="radio" name="jawab[<?=$key[0]?>]" value="<?=$key[4]?>"> <?=$key[4]?></label>
+        <label><input type="radio" name="jawab[<?=$key[0]?>]" value="c"> C. <?=$key[4]?></label>
     </div>
     <div class="form-group ans">
-        <label><input type="radio" name="jawab[<?=$key[0]?>]" value="<?=$key[5]?>"> <?=$key[5]?></label>
+        <label><input type="radio" name="jawab[<?=$key[0]?>]" value="d"> D. <?=$key[5]?></label>
     </div>
     <div class="form-group ans">
-        <label><input type="radio" name="jawab[<?=$key[0]?>]" value="<?=$key[6]?>"> <?=$key[6]?></label>
+        <label><input type="radio" name="jawab[<?=$key[0]?>]" value="e"> E. <?=$key[6]?></label>
     </div>
 <hr>
 </section>

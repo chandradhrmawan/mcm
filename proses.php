@@ -20,6 +20,8 @@ switch ($my_val) {
 function insert_jabawan()
 {
 	
+	//debux($_POST);die();
+
 	$soal = $_POST['soal'];
 	$jawaban = $_POST['jawaban'];
 	$jawab = $_POST['jawab'];
@@ -31,7 +33,7 @@ function insert_jabawan()
 		$value = (isset($value)) ? $value : null;
 		$jawab[$key] = (isset($jawab[$key])) ? $jawab[$key] : null;
 
-		$skor = ($value == $jawab[$key]) ? "1" : "0";
+		$skor = (substr($value,0,1) == strtolower(substr($jawab[$key],0,1))) ? "1" : "0";
 
 		$sql = "INSERT INTO jawaban (id_soal, jawab, jawaban,skor,id_user)
 			VALUES ( '$soal[$key]','$jawab[$key]','$value','$skor','$id_user')";
