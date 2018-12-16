@@ -15,7 +15,14 @@
  	</div>
 	<div class="form-group">
 		<label>Jawaban</label>
-		<input type="text" name="jawaban" class="form-control">
+		<select name="jawaban" class="form-control" style="width: 30% !important;">
+ 			<option value="">--Pilih Jabawan--</option>
+ 			<option value="a"> A </option>
+ 			<option value="b"> B </option>
+ 			<option value="c"> C </option>
+ 			<option value="d"> D </option>
+ 			<option value="e"> E </option>
+ 		</select>
 	</div>
 	
 	<button class="btn btn-primary" name="save">Simpan</button>

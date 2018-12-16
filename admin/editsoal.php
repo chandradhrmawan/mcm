@@ -24,7 +24,15 @@ $pecah = $ambil->fetch_assoc();
  	</div>
  	<div class="form-group">
  		<label> Jawaban </label>
- 		<input type="text" name="jawaban" class="form-control" value="<?php echo $pecah['jawaban']; ?>">
+
+ 		<select name="jawaban" class="form-control" style="width: 30% !important;">
+ 			<option value="">--Pilih Jabawan--</option>
+ 			<option value="a" <?=($pecah['jawaban']=='a') ? 'selected' :'';?>> <?=$pecah['a'];?> </option>
+ 			<option value="b" <?=($pecah['jawaban']=='b') ? 'selected' :'';?>> <?=$pecah['b'];?> </option>
+ 			<option value="c" <?=($pecah['jawaban']=='c') ? 'selected' :'';?>> <?=$pecah['c'];?> </option>
+ 			<option value="d" <?=($pecah['jawaban']=='d') ? 'selected' :'';?>> <?=$pecah['d'];?> </option>
+ 			<option value="e" <?=($pecah['jawaban']=='e') ? 'selected' :'';?>> <?=$pecah['e'];?> </option>
+ 		</select>
  	</div>
  	
 
@@ -37,7 +45,14 @@ $pecah = $ambil->fetch_assoc();
 if (isset($_POST['ubah'])) {
 	//jika foto dirubah
 	
-		$koneksi->query("UPDATE soal SET nama_soal='$_POST[nama_soal]',a='$_POST[a]',b='$_POST[b]',c='$_POST[c]',d='$_POST[d]',e='$_POST[e]', jawaban='$_POST[jawaban]' WHERE id='$_GET[id]'");
+		$koneksi->query("UPDATE soal SET nama_soal='$_POST[nama_soal]',
+										a='$_POST[a]',
+										b='$_POST[b]',
+										c='$_POST[c]',
+										d='$_POST[d]',
+										e='$_POST[e]', 
+										jawaban='$_POST[jawaban]' 
+										WHERE id='$_GET[id]'");
 
 	echo "<script> alert('Soal berhasil diubah'); </script>";
 	echo "<script> location='index.php?halaman=soaltes';</script>";
