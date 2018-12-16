@@ -80,7 +80,7 @@ if (isset($_POST['daftar'])){
    if(empty($nama)){
     echo "Field tidak boleh kosong";
     }else {
-    $tes= mysql_query("INSERT INTO user VALUES ('','$nama','$username','$password','$confirm_password','$email','$no_telp')") or die(mysql_error());
+    $koneksi->query ("INSERT INTO user VALUES ('','$nama','$username','$password','$confirm_password','$email','$no_telp')");
    
     //  if($tes){
     //     echo "berhasil";

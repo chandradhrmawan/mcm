@@ -57,7 +57,7 @@ $pecah = $ambil->fetch_assoc();
 <div class="row">
 <div class="col-sm-5">   
 <h3>Data CV</h3>
-<img src="../cv/<?php echo $pecah['cv']; ?>" width="200">
+<a href="../cv/<?php echo $pecah['cv']; ?>"> ../cv/<?php echo $pecah['cv']; ?> </a>
 
 </div>   
 
@@ -87,13 +87,26 @@ $pecah = $ambil->fetch_assoc();
       <form method="post">
 	<div class="form-group">
 		<label>Status</label>
-		<select class="form-control" name="status">
+		<select class="form-control" name="status_pelamar">
 			<option value="">Pilih Status</option>
 			<option value="Diterima">Diterima</option>
 			<option value="Ditolak">Ditolak</option>
 		</select>
 	</div>
 	<button class="btn btn-primary" name="proses">Proses</button>
-</form>      
+</form>     
+<?php 
+
+if (isset($_POST["proses"])) {
+ 
+
+    $statuspelamar = $_POST["status_pelamar"];
+    $koneksi->query("UPDATE biodata_user SET status_pelamar='$statuspelamar' WHERE id_pelamar='$_GET[id]'");
+
+    echo "<script>alert('Data Berhasil di Update');</script>";
+    echo "<script>location='index.php?halaman=berkaspelamarlulus';</script>";
+}
+
+ ?> 
 </div>
 </div>

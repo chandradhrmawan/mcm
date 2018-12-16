@@ -85,16 +85,65 @@ include 'koneksi.php';
         <section id="about">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-7 col-md-6">
+                    <div class="col-6">
                         <div class="about_content">
                             <h2>PT. MARATAMA CIPTA MANDIRI</h2>
                         
                             <p>Menghadapi era globalisasi dan kompetisi yang semakin ketat seiring dengan pertumbuhan ekonomi pada umumnya dan dunia konstruksi pada khususnya. PT. MARATAMA CIPTA MANDIRI berusaha menjawab tantangan ini dengan mulai memfokuskan diri pada Jasa Perencanaan Struktur, Arsitektur, dan Lingkungan.</p>
                             <p>Terobosan-terobosan inovatif terus kami lakukan untuk meningkatkan daya saing perusahaan dalam menghadapi pasar global ini. Kami percaya, setiap inovasi yang kami berikan akan menghasilkan nilai tambah bagi setiap proses perencanaan dan pembangunan yang akan dilaksanakan dan semakin menjamin kepuasan para pengguna jasa. </p>
+
+                        </div>
+                    </div>                 
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="about_content">
+                            <h2>Info Lowongan Pekerjaan</h2>
+                        
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                      <th>
+                                          No
+                                      </th> 
+                                      <th>
+                                          Nama Divisi
+                                      </th> 
+                                      <th>
+                                          Tanggal 
+                                      </th>
+                                      <th>
+                                         Persyaratan
+                                      </th>
+                                      <th>
+                                          Info
+                                      </th>
+                                      
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $nomor=1; ?>
+        <?php $ambil = $koneksi->query("SELECT * FROM lowongan"); ?>
+        <?php while($pecah = $ambil->fetch_assoc()) { ?>
+        <tr>
+            <td><?php echo $nomor; ?></td>
+            <td><?php echo $pecah['nama_divisi']; ?></td>
+            <td><?php echo $pecah['tanggal']; ?></td>
+            <td><?php echo $pecah['persyaratan']; ?></td>
+            <td><a href="erequiretment.php?id=<?php echo $pecah['id_lowongan']; ?>">Daftar</a></td>
+            
+        </tr>
+
+        <?php $nomor++; ?>
+        <?php } ?>
+                                    
+                                </tbody>
+                            </table>
                             <a  class="btn know_btn">know more</a>
                         </div>
                     </div>
-                   
+
+                  
                 </div>
             </div>
         </section><!-- About end -->
@@ -143,7 +192,7 @@ include 'koneksi.php';
                 </div>
             </div>
         </section><!-- Why us end -->
- -->
+ 
         <!-- Services -->
         <section id="services">
             <div class="container">
@@ -151,7 +200,7 @@ include 'koneksi.php';
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="service_item">
-                            <img src="images/service_img1.jpg" alt="Our Services" />
+                            <img src="images/1.jpg" alt="Our Services" />
                             <h3>STRUCTURE</h3>
                             <p>-</p>
                             <a href="#services" class="btn know_btn">know more</a>
@@ -159,7 +208,7 @@ include 'koneksi.php';
                     </div>
                     <div class="col-sm-4">
                         <div class="service_item">
-                            <img src="images/service_img2.jpg" alt="Our Services" />
+                            <img src="images/2.jpg" alt="Our Services" />
                             <h3>ARCHITECTURE</h3>
                             <p>-</p>
                             <a href="#services" class="btn know_btn">know more</a>
@@ -167,25 +216,18 @@ include 'koneksi.php';
                     </div>
                     <div class="col-sm-4">
                         <div class="service_item">
-                            <img src="images/service_img3.jpg" alt="Our Services" />
+                            <img src="images/3.jpg" alt="Our Services" />
                             <h3>ENGINEERING</h3>
                             <p>-</p>
                             <a href="#services" class="btn know_btn">know more</a>
 
                         </div>
                     </div>
-                    <div class="col-sm-5">
-                        <div class="service_item">
-                            <img src="images/service_img3.jpg" alt="Our Services" />
-                            <h3>PLANNING</h3>
-                            <p>-</p>
-                            <a href="#services" class="btn know_btn">know more</a>
-                            
-                        </div>
+                    
                     </div>
-                    <div class="col-sm-5">
+                    <div class="col-sm-4">
                         <div class="service_item">
-                            <img src="images/service_img3.jpg" alt="Our Services" />
+                            <img src="images/4.jpg" alt="Our Services" />
                             <h3>MASTER PLAN</h3>
                             <p>-</p>
                             <a href="#services" class="btn know_btn">know more</a>
@@ -200,7 +242,7 @@ include 'koneksi.php';
         <section id="portfolio">
             <div class="container portfolio_area text-center">
                 <h2>HASIL PROJECT</h2>
-                <p>-</p>
+                <p>Berikut Hasil Project yang telah dikerjakan oleh PT.Maratama Cipta Mandiri</p>
 
                 <div id="filters">
                     <button class="button is-checked" data-filter="*">Show All</button>
@@ -212,42 +254,75 @@ include 'koneksi.php';
                 <!-- Portfolio grid -->		
                 <div class="grid">
                     <div class="grid-sizer"></div>
-                    <div class="grid-item grid-item--width2 grid-item--height2 buildings plumbing interior">
-                        <img alt="" src="images/highligh_img.jpg" >
+                    <div class="grid-item grid-item--width2 grid-item--height2 buildings ">
+                        <img alt="" src="images/f1.jpg" >
                         <div class="portfolio_hover_area">
-                            <a class="fancybox" href="images/highligh_img.jpg" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet"><span class="fa fa-search"></span></a>
+                            <a class="fancybox" href="images/f1.jpg" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet"><span class="fa fa-search"></span></a>
                             <a href="#"><span class="fa fa-link"></span></a>
                         </div>  
                     </div>
-
-                    <div class="grid-item buildings interior isolation">
-                        <img alt="" src="images/portfolio1.jpg" >
+                    <!-- Building / bangunan -->
+                    <div class="grid-item buildings ">
+                        <img alt="" src="images/f2.jpg" >
                         <div class="portfolio_hover_area">
-                            <a class="fancybox" href="images/portfolio1.jpg" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet"><span class="fa fa-search"></span></a>
+                            <a class="fancybox" href="images/f2.jpg" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet"><span class="fa fa-search"></span></a>
                             <a href="#"><span class="fa fa-link"></span></a>
                         </div>   
                     </div>
 
-                    <div class="grid-item interior plumbing isolation">
-                        <img alt="" src="images/portfolio2.jpg" >
+                    <div class="grid-item buildings">
+                        <img alt="" src="images/f3.jpg" >
                         <div class="portfolio_hover_area">
-                            <a class="fancybox" href="images/portfolio2.jpg" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet"><span class="fa fa-search"></span></a>
+                            <a class="fancybox" href="images/f3.jpg" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet"><span class="fa fa-search"></span></a>
+                            <a href="#"><span class="fa fa-link"></span></a>
+                        </div>  
+                    </div>
+                    <!-- Akhir Building / bangunan -->
+                    <!-- Highway / Jalan tol -->
+                    <div class="grid-item interior ">
+                        <img alt="" src="images/h1.jpg" >
+                        <div class="portfolio_hover_area">
+                            <a class="fancybox" href="images/h1.jpg" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet"><span class="fa fa-search"></span></a>
                             <a href="#"><span class="fa fa-link"></span></a>
                         </div>  
                     </div>
 
-                    <div class="grid-item isolation buildings">
-                        <img alt="" src="images/portfolio3.jpg" >
+                    <div class="grid-item interior">
+                        <img alt="" src="images/h2.jpg" >
                         <div class="portfolio_hover_area">
-                            <a class="fancybox" href="images/portfolio3.jpg" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet"><span class="fa fa-search"></span></a>
+                            <a class="fancybox" href="images/h2.jpg" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet"><span class="fa fa-search"></span></a>
                             <a href="#"><span class="fa fa-link"></span></a>
                         </div>  
                     </div>
-
-                    <div class="grid-item plumbing isolation">
-                        <img alt="" src="images/portfolio4.jpg" >
+                    <!-- Akhir Highway / Jalan tol -->
+                    <!-- Bridge / jembatan -->
+                    <div class="grid-item isolation">
+                        <img alt="" src="images/j1.jpg" >
                         <div class="portfolio_hover_area">
-                            <a class="fancybox" href="images/portfolio4.jpg" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet"><span class="fa fa-search"></span></a>
+                            <a class="fancybox" href="images/j1.jpg" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet"><span class="fa fa-search"></span></a>
+                            <a href="#"><span class="fa fa-link"></span></a>
+                        </div>  
+                    </div>
+                     <div class="grid-item isolation">
+                        <img alt="" src="images/j2.jpg" >
+                        <div class="portfolio_hover_area">
+                            <a class="fancybox" href="images/j2.jpg" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet"><span class="fa fa-search"></span></a>
+                            <a href="#"><span class="fa fa-link"></span></a>
+                        </div>  
+                    </div>
+                    
+                    <!-- Akhir Bridge / jembatan -->
+                     <div class="grid-item plumbing">
+                        <img alt="" src="images/o1.jpg" >
+                        <div class="portfolio_hover_area">
+                            <a class="fancybox" href="images/o1.jpg" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet"><span class="fa fa-search"></span></a>
+                            <a href="#"><span class="fa fa-link"></span></a>
+                        </div>  
+                    </div>
+                     <div class="grid-item plumbing">
+                        <img alt="" src="images/j3.jpg" >
+                        <div class="portfolio_hover_area">
+                            <a class="fancybox" href="images/j3.jpg" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet"><span class="fa fa-search"></span></a>
                             <a href="#"><span class="fa fa-link"></span></a>
                         </div>  
                     </div>
@@ -257,30 +332,7 @@ include 'koneksi.php';
 
         
        
-        <!-- Contact form -->
-        <section id="contact_form">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6">
-                        <h2>Do you have any questions?</h2>
-                        <h2 class="second_heading">Feel free to contact us!</h2>
-                    </div>
-                    <form role="form" class="form-inline text-right col-md-6" >
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="name" placeholder="Name">
-                        </div>
-                        <div class="form-group">
-                            <input type="email" class="form-control" id="email" placeholder="Email">
-                        </div>
-                        <div class="form-group">
-                            <textarea class="form-control" rows="5" id="msg" placeholder="Message"></textarea>
-                        </div>
-                        <button type="submit" class="btn submit_btn">Submit</button>
-                    </form>				
-                </div>
-            </div>
-        </section><!-- Contact form end -->
-
+       
 <?php include 'footer.php'; ?>
 
         <!-- JavaScript -->

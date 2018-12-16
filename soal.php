@@ -102,6 +102,9 @@ endif;
     <div class="form-group ans">
         <label><input type="radio" name="jawab[<?=$key[0]?>]" value="<?=$key[5]?>"> <?=$key[5]?></label>
     </div>
+    <div class="form-group ans">
+        <label><input type="radio" name="jawab[<?=$key[0]?>]" value="<?=$key[6]?>"> <?=$key[6]?></label>
+    </div>
 <hr>
 </section>
 

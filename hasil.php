@@ -137,12 +137,21 @@ function hasil_soal($id_user)
 
   </table>
 
-<div class="form-group">
-    <button type="button" name="save" class="btn btn-primary" onclick="simpan()">Print</button>
-</div>
+
 
 </div>
-
+<div class="row">
+ <div class="col-md-7">
+  <div class="alert alert-info">
+   <p>
+    Note : <br>
+    
+    <strong>Selamat Anda Akan mengikuti Interview</strong><br>
+    <strong>Pada tanggal 17-12-2018 Pada jam 11.00 WIB</strong><br>
+   </p>
+  </div>
+ </div>
+</div>
 </section>
 
 

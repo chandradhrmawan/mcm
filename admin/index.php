@@ -57,6 +57,7 @@ font-size: 16px;"> <a href="logout.php" class="btn btn-danger square-btn-adjust"
 				
 					
                     <li> <a href="index.php"><i class="fa fa-dashboard fa-3x"></i> Home</a></li>
+                     <li> <a href="index.php?halaman=lowongan"><i class="fa fa-dashboard fa-3x"></i> Info Lowongan Pekerjaan</a></li>
                     <li> <a href="index.php?halaman=user"><i class="fa fa-dashboard fa-3x"></i>User</a></li>
                     <li> <a href="index.php?halaman=datapelamar"><i class="fa fa-dashboard fa-3x"></i>Data Pelamar</a></li>
                     <li> <a href="index.php?halaman=berkaspelamarlulus"><i class="fa fa-dashboard fa-3x"></i> Berkas Pelamar Lulus</a></li>
@@ -96,7 +97,47 @@ font-size: 16px;"> <a href="logout.php" class="btn btn-danger square-btn-adjust"
                     {
                         include 'hapusdatapelamar.php';
                     }
-                    
+                else if ($_GET['halaman']=="hapusdatauser") 
+                    {
+                        include 'hapusdatauser.php';
+                    }
+                 else if ($_GET['halaman']=="lowongan") 
+                    {
+                        include 'lowongan.php';
+                    }
+                else if ($_GET['halaman']=="tambahlowongan") 
+                    {
+                        include 'tambahlowongan.php';
+                    } 
+                 else if ($_GET['halaman']=="hapuslowongan") 
+                    {
+                        include 'hapuslowongan.php';
+                    } 
+                  else if ($_GET['halaman']=="berkaspelamarlulus") 
+                    {
+                        include 'berkaspelamarlulus.php';
+                    }
+                 else if ($_GET['halaman']=="editlowongan") 
+                    {
+                        include 'editlowongan.php';
+                    }                         
+                 else if ($_GET['halaman']=="soaltes") 
+                    {
+                        include 'soaltes.php';
+                    } 
+                 else if ($_GET['halaman']=="editsoal") 
+                    {
+                        include 'editsoal.php';
+                    }    
+                    else if ($_GET['halaman']=="hapussoal") 
+                    {
+                        include 'hapussoal.php';
+                    }
+                else if ($_GET['halaman']=="tambahsoal") 
+                    {
+                        include 'tambahsoal.php';
+                    }
+
                 }
                 else
                 {

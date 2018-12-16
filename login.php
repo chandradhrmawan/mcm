@@ -101,8 +101,8 @@ if (isset($_POST["login"])) {
         $akun = $ambil->fetch_assoc();
         //simpan di session pelanggan
         $_SESSION["user"] = $akun;
-        echo "<script>alert('Anda sukses login');</script>";
-        echo "<script>location='erequiretment.php';</script>";
+        // echo "<script>alert('Anda sukses login');</script>";
+        echo "<script>location='index.php';</script>";
        
        
     }

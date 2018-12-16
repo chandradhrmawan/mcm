@@ -34,7 +34,7 @@
 			<td><?php echo $pecah['email']; ?></td>
 			<td><?php echo $pecah['no_telp']; ?></td>
 			<td>
-				<a href="" class="btn btn-danger"><span class=" fa fa-trash"> Hapus</span></a>
+				<a href="index.php?halaman=hapusdatauser&id=<?php echo $pecah['id_user']; ?>" class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash">Hapus</i></a>
 			</td>
 		</tr>
 		<?php $nomor++; ?>

@@ -75,9 +75,11 @@
                             <li><a href="#services">Projects</a></li>
                             <li><a href="#portfolio">Gallery</a></li>
                             <li><a href="#contact_form">Contact Us</a></li>
-                            <li><a href="erequiretment.php">E-Requiretment </a></li>
+                          
+                            
                             <!-- jika sudah login / sudah ada session pelanggan -->
                             <?php if (isset($_SESSION["user"])) :?>
+                                <li><a href="pengumuman.php">Pengumuman </a></li>
                             <li><a href="logout.php">Log out </a></li>
                             <!-- selain itu / belum login/belum ada session pelanggan -->
                             <?php else: ?>

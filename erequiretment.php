@@ -53,7 +53,15 @@ if (!isset($_SESSION["user"])) {
 
 
 <div class="container">
-    <h2>Biodata User</h2>
+     <?php $id_lowongan = $_GET['id']; ?>
+    <?php $ambil = $koneksi->query("SELECT * FROM lowongan WHERE id_lowongan='$id_lowongan'"); ?>
+        <?php while($pecah = $ambil->fetch_assoc()) { ?>
+    <h2>Divisi : <?php echo $pecah['nama_divisi']; ?></h2>
+   
+      
+            <h3>BIODATA USER </h3>
+            
+            <?php } ?>
 <form method="post" enctype="multipart/form-data">
     
     <div class="form-group">
@@ -112,7 +120,8 @@ if (!isset($_SESSION["user"])) {
             <option value="S1">S1</option>
             <option value="S2">S2</option>
          </select>
-         <!--  <input type="text" name="pendidikan" class="form-control">  -->
+         
+          <input type="text" placeholder="Program Studi" name="pendidikan" class="form-control"> 
     </div>
     
     <div class="form-group">
@@ -140,7 +149,7 @@ if (!isset($_SESSION["user"])) {
     </div>
 
     <div class="form-group">
-    <label>Pengalaman Kerja</label>
+    <label>Pengalaman Kerja (Tahun) </label>
     <input type="number" name="pengalaman_kerja" value="0" step="1" class="form-control" required="">       
     </div>
     
@@ -225,7 +234,7 @@ if (isset($_POST["simpan"])){
     // move_uploaded_file($lokasidokument, "dokument/$namafix");
 
 
-   
+   $id_lowongan = $_GET['id'];
     $nama=$_POST["nama"];
     $tanggal_lahir=$_POST["tanggal_lahir"];
     $no_telp=$_POST["no_telp"];
@@ -243,15 +252,13 @@ if (isset($_POST["simpan"])){
     $deskripsi_singkat=$_POST["deskripsi_singkat"];
 
     //simpan ke db biodata_user
-    $koneksi->query("INSERT INTO biodata_user(nama,tanggal_lahir,no_telp,alamat,jenis_kelamin,status,no_ktp,email,pendidikan,perguruan_tinggi,nama_perguruan_tinggi,ipk,id_skype,pengalaman_kerja,deskripsi_singkat,cv,ijazah,sertifikat_keahlian,fotocopy_ktp,npwp) VALUES ('$nama','$tanggal_lahir','$no_telp','$alamat','$jenis_kelamin','$status','$no_ktp','$email','$pendidikan','$perguruan_tinggi','$nama_perguruan_tinggi','$ipk','$id_skype','$pengalaman_kerja','$deskripsi_singkat','$namacvfix','$namaijazahfix','$namasertifikatkeahlianfix','$namafotocopyktpfix','$namanpwpfix')");
+    $koneksi->query("INSERT INTO biodata_user(id_lowongan,nama,tanggal_lahir,no_telp,alamat,jenis_kelamin,status,no_ktp,email,pendidikan,perguruan_tinggi,nama_perguruan_tinggi,ipk,id_skype,pengalaman_kerja,deskripsi_singkat,cv,ijazah,sertifikat_keahlian,fotocopy_ktp,npwp) VALUES ('$id_lowongan','$nama','$tanggal_lahir','$no_telp','$alamat','$jenis_kelamin','$status','$no_ktp','$email','$pendidikan','$perguruan_tinggi','$nama_perguruan_tinggi','$ipk','$id_skype','$pengalaman_kerja','$deskripsi_singkat','$namacvfix','$namaijazahfix','$namasertifikatkeahlianfix','$namafotocopyktpfix','$namanpwpfix')");
 
     echo "<script>alert('Terimakasih, Dokument Anda Sudah Diteruskan Ke Admin');</script>";
     echo "<script>location='index.php';</script>";
 
 }
-else{
- echo "<script>alert('Dokument Anda Gagal Coba Lagi');</script>";
-}
+
 
  ?>
 

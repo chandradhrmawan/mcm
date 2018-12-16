@@ -1,4 +1,4 @@
-<h2>data pelamar</h2>
+<h2>Data Pelamar Lulus</h2>
 
 <table class="table table-bordered">
 	<thead>
@@ -37,10 +37,8 @@
 				Aksi
 			</th>
 		</tr>
-	</thead>
-	<tbody>
 		<?php $nomor=1; ?>
-		<?php $ambil = $koneksi->query("SELECT * FROM biodata_user JOIN lowongan ON biodata_user.id_lowongan=lowongan.id_lowongan"); ?>
+		<?php $ambil = $koneksi->query("SELECT * FROM biodata_user JOIN lowongan ON biodata_user.id_lowongan=lowongan.id_lowongan WHERE status_pelamar = 'Diterima'"); ?>
 		<?php while($pecah = $ambil->fetch_assoc()) { ?>
 		<tr>
 			<td><?php echo $nomor; ?></td>
@@ -55,7 +53,7 @@
 			<td><?php echo $pecah['nama_divisi']; ?></td>
 			
 			<td>
-				<a href="index.php?halaman=detail&id=<?php echo $pecah['id_pelamar']; ?>" class="btn btn-info"><span class= "fa fa-file"> Detail </span></a>
+				<a href="index.php?halaman=berkaspelamarlulus&id=<?php echo $pecah['id_pelamar']; ?>" class="btn btn-info"><span class= "fa fa-file"> Detail </span></a>
 				<a href="index.php?halaman=hapusdatapelamar&id=<?php echo $pecah['id_pelamar']; ?>" " class="btn btn-danger"><span class=" fa fa-trash"> Hapus</span></a>
 
 
@@ -64,5 +62,5 @@
 		</tr>
 		<?php $nomor++; ?>
 		<?php } ?>
-	</tbody>
-</table>
+	</thead>
+	<tbody>
