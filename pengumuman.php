@@ -11,7 +11,7 @@ if (!isset($_SESSION["user"])) {
         echo "<script>location='login.php';</script>";
 }
 
- ?>
+?>
 
 
 
@@ -46,7 +46,9 @@ if (!isset($_SESSION["user"])) {
 
 <?php include 'navbar.php'; ?>
 
-
+<!-- <?php //echo date('d-m-Y'); ?>
+<p>Untuk Input Ke Db</p>
+<?php  //echo dateNow(); ?> -->
 <!-- konten -->
 <section id="home" class="home">
 
@@ -68,6 +70,9 @@ if (!isset($_SESSION["user"])) {
 			<th>
 				Email
 			</th>
+            <th>
+                Universitas
+            </th>
 		</tr>
 	</thead>
 	<tbody>
@@ -79,7 +84,7 @@ if (!isset($_SESSION["user"])) {
 			<td><?php echo $pecah['nama']; ?></td>
 			<td><?php echo $pecah['no_telp']; ?></td>
 			<td><?php echo $pecah['email']; ?></td>
-			
+			<td><?php echo $pecah['nama_perguruan_tinggi']; ?></td>
 		</tr>
 		
 		<?php } ?>
@@ -89,13 +94,34 @@ if (!isset($_SESSION["user"])) {
 <div class="row">
  <div class="col-md-7">
   <div class="alert alert-info">
+    <form method="post">
    <p>
     Note : <br>
     
+        <?php $ambil=$koneksi->query("SELECT * FROM jadwal");   ?>
+
+
+    
+       <?php while ($pecah=$ambil->fetch_assoc()) {  
+
+             if ($pecah['tanggal_mulai'] > DateNow() ) {
+               $dis = "disabled";
+            }else{
+                $dis = "";
+            }
+
+        ?> 
     <strong>Bagi Nama Yang Tercantum Diatas Dapat Mengikuti  Tes Ujian Online  </strong><br>
-    <strong>Yang Diadakan Pada Tanggal 15-Desember-2018 Jam 10.00 WIB</strong><br>
-    <strong>Pada Link Berikut : <a href="soal.php" class="btn btn-primary">Tes Soal</a></strong>
+    <strong>Yang Diadakan Pada Tanggal <?php echo $pecah['tanggal_mulai']; ?></strong><br>
+    <strong>Pada Link Berikut : <button name="soal" class="btn btn-primary" <?php echo $dis; ?>> Soal </button></strong><br>
+    <strong>Bagi rekan rekan yang belum lolos pada tahap seleksi kali ini, kami mengucapkan terim kasih dan semoga sukses</strong><br>
+
    </p>
+   <?php } ?>
+   </form>
+
+
+
   </div>
  </div>
 </div>
@@ -127,3 +153,40 @@ if (!isset($_SESSION["user"])) {
         <script src="js/main.js"></script>
     </body>	
 </html>	
+
+
+
+<?php 
+
+if (isset($_POST['soal'])) {
+    
+
+  $ambil=$koneksi->query("SELECT * FROM jadwal");  
+
+   while ($pecah=$ambil->fetch_assoc()) {  
+    
+     if ($pecah['tanggal_mulai'] >= $pecah['tanggal_akhir'] && $pecah['tanggal_mulai'] <= $pecah['tanggal_akhir']) {
+        echo "<script>location='soal.php';</script>";
+    }
+    else
+    {
+        if($pecah['tanggal_mulai'] < $pecah['tanggal_akhir'])
+        {
+            echo "<script>alert('Mohon maaf link untuk tes belum terbuka')</script>";
+            echo "<script>location='pengumuman.php';</script>";
+        }
+        else
+        {
+            echo "<script>alert('Mohon maaf untuk tes sudah ditutup')</script>";
+            echo "<script>location='pengumuman.php';</script>";
+        }
+    }
+     
+  }  
+}
+
+
+
+
+
+ ?>

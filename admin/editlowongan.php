@@ -16,7 +16,7 @@ $pecah = $ambil->fetch_assoc();
  	</div>
  	<div class="form-group">
  		<label> Tanggal</label>
- 		<input type="text" name="tanggal" class="form-control" value="<?php echo $pecah['tanggal']; ?>">
+ 		<input type="text" name="tanggal_mulai" class="form-control" value="<?php echo $pecah['tanggal_mulai']; ?>">
  	</div>
  	<div class="form-group">
  		<label>Persyaratan</label>
@@ -30,9 +30,9 @@ $pecah = $ambil->fetch_assoc();
 if (isset($_POST['ubah'])) {
 	//jika foto dirubah
 	
-		$koneksi->query("UPDATE lowongan SET nama_divisi='$_POST[nama_divisi]', tanggal='$_POST[tanggal]', persyaratan='$_POST[persyaratan]' WHERE id_lowongan='$_GET[id]'");
+		$koneksi->query("UPDATE lowongan SET nama_divisi='$_POST[nama_divisi]', tanggal_mulai='$_POST[tanggal_mulai]', persyaratan='$_POST[persyaratan]' WHERE id_lowongan='$_GET[id]'");
 
-	echo "<script> alert('Data  berhasil diubah'); </script>";
+	echo "<script> alert('Data Berhasil Diubah'); </script>";
 	echo "<script> location='index.php?halaman=lowongan';</script>";
 }
 

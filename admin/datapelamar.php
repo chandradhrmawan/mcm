@@ -1,4 +1,4 @@
-<h2>data pelamar</h2>
+<h2>Data Pelamar</h2>
 
 <table class="table table-bordered">
 	<thead>

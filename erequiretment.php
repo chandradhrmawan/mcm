@@ -140,7 +140,7 @@ if (!isset($_SESSION["user"])) {
     
     <div class="form-group">
     <label> IPK </label>
-    <input type="number" name="ipk" value="0" step="0,1" class="form-control" required="">
+    <input type="text" name="ipk" value="0,00" class="form-control" required="">
     </div>
     
     <div class="form-group">
@@ -150,7 +150,7 @@ if (!isset($_SESSION["user"])) {
 
     <div class="form-group">
     <label>Pengalaman Kerja (Tahun) </label>
-    <input type="number" name="pengalaman_kerja" value="0" step="1" class="form-control" required="">       
+    <input type="number" name="pengalaman_kerja" value="0" min="1" class="form-control" required="">       
     </div>
     
     <div class="form-group">
@@ -265,21 +265,6 @@ if (isset($_POST["simpan"])){
 
 
 </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <?php include 'footer.php'; ?>

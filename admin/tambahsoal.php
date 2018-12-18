@@ -45,12 +45,23 @@
 	<div class="form-group col-md-8">
 		<label>Jawaban</label>
 		<select name="jawaban" class="form-control" style="width: 30% !important;">
- 			<option value="">--Pilih Jabawan--</option>
+ 			<option value="">--Pilih Jawaban--</option>
  			<option value="a"> A </option>
  			<option value="b"> B </option>
  			<option value="c"> C </option>
  			<option value="d"> D </option>
  			<option value="e"> E </option>
+ 		</select>
+	</div>
+	<div class="form-group col-md-8">
+		<label>Lowongan</label>
+		<?php $ambil=$koneksi->query("SELECT * FROM lowongan"); ?>
+		
+		<select name="lowongan" class="form-control" style="width: 30% !important;">
+ 			<option value="">--Pilih Lowongan--</option>
+			<?php while ($pecah=$ambil->fetch_assoc()) { ?>
+ 			<option value='<?php echo $pecah["id_lowongan"]; ?>'> <?php echo $pecah["nama_divisi"]; ?> </option>
+ 			<?php } ?>
  		</select>
 	</div>
 	<div class="form-group col-md-8">
@@ -62,7 +73,7 @@
 
 if (isset($_POST['save'])) {
 
-	$koneksi->query("INSERT INTO soal (nama_soal,a,b,c,d,e,jawaban) VALUES('$_POST[nama_soal]','$_POST[a]','$_POST[b]','$_POST[c]','$_POST[d]','$_POST[e]','$_POST[jawaban]')");
+	$koneksi->query("INSERT INTO soal (nama_soal,a,b,c,d,e,jawaban,id_lowongan) VALUES('$_POST[nama_soal]','$_POST[a]','$_POST[b]','$_POST[c]','$_POST[d]','$_POST[e]','$_POST[jawaban]','$_POST[lowongan]')");
 
 	echo "<div class='alert alert-info'>Data Soal tersimpan</div>";
 	echo "<meta http-equiv='refresh' content='1;url=index.php?halaman=soaltes'>";

@@ -64,7 +64,7 @@
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
                             <i class="fa fa-bars"></i>
                         </button>
-                        <a class="navbar-brand" href="">PT. MARATAMA CIPTA MANDIRI <br>
+                        <a class="navbar-brand" href="index.php">PT. MARATAMA CIPTA MANDIRI <br>
                             <p>General Consultant</p></a>
                     </div>
                     <!-- Navigation -->

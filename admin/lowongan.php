@@ -28,7 +28,7 @@ Persyaratan
 		<tr>
 			<td><?php echo $nomor; ?></td>
 			<td><?php echo $pecah['nama_divisi']; ?></td>
-			<td><?php echo $pecah['tanggal']; ?></td>
+			<td><?php echo $pecah['tanggal_mulai']; ?></td>
 			<td><?php echo $pecah['persyaratan']; ?></td>
 			
 			<td>

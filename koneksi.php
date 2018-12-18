@@ -14,7 +14,11 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
 
+date_default_timezone_set("Asia/Jakarta");
 
+function dateNow(){
+	return date("Y-m-d H:i:s");
+}
 function debux($str, $ret=FALSE)
 {
 	echo "<pre>";

@@ -148,6 +148,7 @@ function hasil_soal($id_user)
     
     <strong>Selamat Anda Akan mengikuti Interview</strong><br>
     <strong>Pada tanggal 17-12-2018 Pada jam 11.00 WIB</strong><br>
+    <strong>Bagi rekan rekan yang belum lolos pada tahap seleksi kali ini, kami mengucapkan terim kasih dan semoga sukses</strong><br>
    </p>
   </div>
  </div>
@@ -155,14 +156,6 @@ function hasil_soal($id_user)
 </section>
 
 
-        
-
-        
-      
-
-        
-       
-        
 
 <?php include 'footer.php'; ?>
 

@@ -28,13 +28,16 @@
 				Jawaban
 			</th>
 			<th>
+				Nama Lowongan
+			</th>
+			<th>
 				Aksi
 			</th>
 		</tr>
 	</thead>
 	<tbody>
 		<?php $nomor=1; ?>
-		<?php $ambil = $koneksi->query("SELECT * FROM soal"); ?>
+		<?php $ambil = $koneksi->query("SELECT * FROM soal JOIN lowongan ON soal.id_lowongan = lowongan.id_lowongan"); ?>
 		<?php while($pecah = $ambil->fetch_assoc()) { ?>
 		<tr>
 			<td><?php echo $nomor; ?></td>
@@ -45,6 +48,7 @@
 			<td><?php echo $pecah['d']; ?></td>
 			<td><?php echo $pecah['e']; ?></td>
 			<td><?php echo $pecah['jawaban']; ?></td>
+			<td><?php echo $pecah['nama_divisi']; ?></td>
 			
 			
 			<td>

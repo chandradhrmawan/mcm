@@ -45,6 +45,38 @@ endif;
         <!--[if lt IE 9]>
                 <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
+        <script type="text/javascript">
+        function startTimer(duration, display) {
+        var timer = duration, minutes, seconds;
+        setInterval(function () {
+        minutes = parseInt(timer / 60, 10)
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds;
+
+        if (--timer < 0) {
+                timer = duration;
+                   autoSubmit();
+                   clearInterval(interVal)
+        }
+    }, 1000);
+}
+
+    function autoSubmit(){
+        simpan();
+    }
+window.onload = function () {
+//this is where you can modifies the time amount.
+    var thirtyminutes = 60 * 30,
+    
+        display = document.querySelector('#time');
+    a = startTimer(thirtyminutes, display);
+};
+</script>
+
     </head>
     <body>
 
@@ -67,8 +99,9 @@ endif;
       </style>
 
 
-        
+
 <div class="container head-top">
+    <div>Waktu Anda Tersisa <span id="time">30:00</span> minutes!</div>
     <form name="form" id="form_soal" method="post">
 
 <?php

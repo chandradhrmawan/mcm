@@ -6,12 +6,16 @@
 		<input type="text" name="nama_divisi" class="form-control">
 	</div>
 	<div class="form-group">
-		<label>Tanggal</label>
-		<input type="text" name="tanggal" class="form-control">
+		<label>Tanggal Mulai</label>
+		<input type="text" name="tanggal_mulai" class="form-control">
 	</div>
 	<div class="form-group">
-		<label>Deskripsi</label>
-		<textarea class="form-control" name="deskripsi" rows="10"></textarea>
+		<label>Tanggal Selesai</label>
+		<input type="text" name="tanggal_selesai" class="form-control">
+	</div>
+	<div class="form-group">
+		<label>Persyaratan</label>
+		<textarea class="form-control" name="persyaratan" rows="10"></textarea>
 	</div>
 	
 	<button class="btn btn-primary" name="save">Simpan</button>
@@ -20,7 +24,7 @@
 <?php 
 
 if (isset($_POST['save'])) {	
-	$koneksi->query("INSERT INTO lowongan (nama_divisi,tanggal,deskripsi) VALUES('$_POST[nama_divisi]','$_POST[tanggal]','$_POST[deskripsi]')");
+	$koneksi->query("INSERT INTO lowongan (nama_divisi,tanggal_mulai,tanggal_selesai,persyaratan) VALUES('$_POST[nama_divisi]','$_POST[tanggal_mulai]','$_POST[tanggal_selesai]','$_POST[persyaratan]')");
 
 	echo "<div class='alert alert-info'>Data tersimpan</div>";
 	echo "<meta http-equiv='refresh' content='1;url=index.php?halaman=lowongan'>";
