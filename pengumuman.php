@@ -111,6 +111,7 @@ if (!isset($_SESSION["user"])) {
             }
 
         ?> 
+    <input type="hidden" name="id_jadwal" value="<?=$pecah['id_jadwal']?>">    
     <strong>Bagi Nama Yang Tercantum Diatas Dapat Mengikuti  Tes Ujian Online  </strong><br>
     <strong>Yang Diadakan Pada Tanggal <?php echo $pecah['tanggal_mulai']; ?></strong><br>
     <strong>Pada Link Berikut : <button name="soal" class="btn btn-primary" <?php echo $dis; ?>> Soal </button></strong><br>
@@ -159,30 +160,22 @@ if (!isset($_SESSION["user"])) {
 <?php 
 
 if (isset($_POST['soal'])) {
-    
 
-  $ambil=$koneksi->query("SELECT * FROM jadwal");  
+    $id_jadwal = $_POST['id_jadwal'];
 
-   while ($pecah=$ambil->fetch_assoc()) {  
-    
-     if ($pecah['tanggal_mulai'] >= $pecah['tanggal_akhir'] && $pecah['tanggal_mulai'] <= $pecah['tanggal_akhir']) {
-        echo "<script>location='soal.php';</script>";
-    }
-    else
-    {
-        if($pecah['tanggal_mulai'] < $pecah['tanggal_akhir'])
-        {
+    $ambil=$koneksi->query("SELECT * FROM jadwal WHERE id_jadwal = '$id_jadwal'");
+
+    while ($pecah=$ambil->fetch_assoc()):
+
+        if ($pecah['tanggal_akhir'] >= dateNow()):
+            echo "<script>location='soal.php';</script>";
+        else:
             echo "<script>alert('Mohon maaf link untuk tes belum terbuka')</script>";
             echo "<script>location='pengumuman.php';</script>";
-        }
-        else
-        {
-            echo "<script>alert('Mohon maaf untuk tes sudah ditutup')</script>";
-            echo "<script>location='pengumuman.php';</script>";
-        }
-    }
-     
-  }  
+        endif;
+
+    endwhile;      
+   
 }
 
 
