@@ -22,10 +22,10 @@ function insert_jabawan()
 	
 	//debux($_POST);die();
 
-	$soal = $_POST['soal'];
-	$jawaban = $_POST['jawaban'];
-	$jawab = $_POST['jawab'];
-	$id_user = $_POST['id_user'];
+	$soal 	 = isset($_POST['soal']) ? $_POST['soal'] : null;
+	$jawaban = isset($_POST['jawaban']) ? $_POST['jawaban'] : null;
+	$jawab 	 = isset($_POST['jawab']) ? $_POST['jawab'] : null;
+	$id_user = isset($_POST['id_user']) ? $_POST['id_user'] : null;
 
 	$conn = mysqli_connect("localhost", "root", "", "mcm");
 	foreach ($jawaban as $key => $value):
