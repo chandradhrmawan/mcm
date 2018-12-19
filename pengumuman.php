@@ -98,7 +98,7 @@ if (!isset($_SESSION["user"])) {
    <p>
     Note : <br>
     
-        <?php $ambil=$koneksi->query("SELECT * FROM jadwal");   ?>
+        <?php $ambil=$koneksi->query("SELECT * FROM jadwal ORDER BY rand() LIMIT 1");   ?>
 
 
     
