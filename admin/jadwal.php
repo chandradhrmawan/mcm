@@ -1,5 +1,7 @@
 <h2>Jadwal Tes</h2>
 
+<a href="index.php?halaman=tambahjadwaltes" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-plus"></span> Tambah jadwal</a>
+
 <table class="table table-bordered">
 	<thead>
 		<tr>

@@ -63,9 +63,8 @@ font-size: 16px;"> <a href="logout.php" class="btn btn-danger square-btn-adjust"
                     <li> <a href="index.php?halaman=berkaspelamarlulus"><i class="fa fa-dashboard fa-3x"></i> Berkas Pelamar Lulus</a></li>
                     <li> <a href="index.php?halaman=soaltes"><i class="fa fa-dashboard fa-3x"></i>Soal Tes </a></li>
                     <li> <a href="index.php?halaman=jadwal"><i class="fa fa-dashboard fa-3x"></i>Jadwal Tes </a></li>
-                    <!-- <li> <a href="index.php?halaman=laporan_dp"><i class="fa fa-dashboard fa-3x"></i>Laporan DP</a></li>
-                    <li> <a href="index.php?halaman=laporan_lunas"><i class="fa fa-dashboard fa-3x"></i>Laporan Lunas</a></li> -->
-                    <li> <a href="index.php?halaman=logout"><i class="fa fa-dashboard fa-3x"></i> Logout</a></li>
+                    <li> <a href="index.php?halaman=hasiltes"><i class="fa fa-dashboard fa-3x"></i>Hasil Tes </a></li>
+                    
                      <li>
         
                     </li>
@@ -146,6 +145,20 @@ font-size: 16px;"> <a href="logout.php" class="btn btn-danger square-btn-adjust"
                     {
                         include 'editjadwal.php';
                     }
+                else if ($_GET['halaman']=="detail_berkaslulus") 
+                    {
+                        include 'detail_berkaslulus.php';
+                    }    
+                else if ($_GET['halaman']=="tambahjadwaltes") 
+                    {
+                        include 'tambahjadwaltes.php';
+                    }
+                else if ($_GET['halaman']=="hasiltes") 
+                    {
+                        include 'hasiltes.php';
+                    }            
+    
+    
 
                 }
                 else

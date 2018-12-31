@@ -1,3 +1,4 @@
+
 <?php 
 
 session_start();
@@ -105,7 +106,7 @@ window.onload = function () {
     <form name="form" id="form_soal" method="post">
 
 <?php
-    $result = $conn->query("SELECT * FROM soal WHERE id_lowongan='$_GET[id]'")->fetch_all();
+    $result = $conn->query("SELECT * FROM soal")->fetch_all();
 
     $id_user = $_SESSION['user']['id_user'];
     //debux($result);
@@ -138,9 +139,7 @@ window.onload = function () {
     <div class="form-group ans">
         <label><input type="radio" name="jawab[<?=$key[0]?>]" value="e"> E. <?=$key[6]?></label>
     </div>
-   
     <html>
-
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
@@ -172,15 +171,18 @@ a:hover {
 </head>
 <body>
 <a href="previous.php" class="previous">&laquo; Previous</a>
-<a href="soal.php?id=<?php echo $key['id']='32'; ?>" class="next">Next &raquo;</a>
+<a href="nextsoal.php" class="next"> Next &raquo;</a>
 
-
+<a href="previous.php" class="previous round">&#8249;</a>
+<a href="nextsoal.php" class="next round">&#8250;</a>
+  
 </body>
 </html> 
+
 <hr>
 </section>
 
- <?php $no+=1; endforeach; ?>
+<?php $no+=1; endforeach; ?>
 </form>
 <div class="form-group">
     <button type="button" name="save" class="btn btn-primary" onclick="simpan()">Simpan</button>

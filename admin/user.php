@@ -25,7 +25,7 @@
 	</thead>
 	<tbody>
 		<?php $nomor=1; ?>
-		<?php $ambil = $koneksi->query("SELECT * FROM user"); ?>
+		<?php $ambil = $koneksi->query("SELECT * FROM user "); ?>
 		<?php while($pecah = $ambil->fetch_assoc()) { ?>
 		<tr>
 			<td><?php echo $nomor; ?></td>

@@ -1,49 +1,46 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-p {
-  text-align: center;
-  font-size: 60px;
-  margin-top: 0px;
-}
-</style>
-</head>
-<body>
 
-<p id="demo"></p>
+<?php 
 
-<script>
-// Set the date we're counting down to
-var countDownDate = new Date("Jan , 2019 15:37:25").getTime();
+$error = $_FILES['cv']['error'];
 
-// Update the count down every 1 second
-var x = setInterval(function() {
+if ($error == 0) {
 
-  // Get todays date and time
-  var now = new Date().getTime();
-    
-  // Find the distance between now and the count down date
-  var distance = countDownDate - now;
-    
-  // Time calculations for days, hours, minutes and seconds
-  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    
-  // Output the result in an element with id="demo"
-  document.getElementById("demo").innerHTML = days + "d " + hours + "h "
-  + minutes + "m " + seconds + "s ";
-    
-  // If the count down is over, write some text 
-  if (distance < 0) {
-    clearInterval(x);
-    document.getElementById("demo").innerHTML = "EXPIRED";
-  }
-}, 1000);
-</script>
+	$ukuran_file = $_FILES['cv']['size'];
 
-</body>
-</html>
+	if ($ukuran_file <= 3000000) {
+		$nama_file = $_FILES['cv']['name'];
+		$namafix = date("YmdHis").$nama_file;
+
+		$format = pathinfo($nama_file, PATHINFO_EXTENSION);
+
+
+		if (($format == "docx") or ($format == "pdf")) {
+
+			$file_asal = $_FILES ['cv']['tmp_name'];
+			$file_tujuan = "cv/".$namafix;
+			$upload = move_uploaded_file($file_asal, $file_tujuan);
+
+			//simpan ke db biodata_user
+  			  $koneksi->query("INSERT INTO biodata_user(id_user,id_lowongan,nama,tanggal_lahir,no_telp,alamat,jenis_kelamin,status,no_ktp,email,pendidikan,perguruan_tinggi,nama_perguruan_tinggi,ipk,id_skype,pengalaman_kerja,deskripsi_singkat,cv,ijazah,sertifikat_keahlian,fotocopy_ktp,npwp,status_pelamar ) VALUES ('$id_user','$id_lowongan','$nama','$tanggal_lahir','$no_telp','$alamat','$jenis_kelamin','$status','$no_ktp','$email','$pendidikan','$perguruan_tinggi','$nama_perguruan_tinggi','$ipk','$id_skype','$pengalaman_kerja','$deskripsi_singkat','$namacvfix','$namaijazahfix','$namasertifikatkeahlianfix','$namafotocopyktpfix','$namanpwpfix',");
+
+    echo "<script>alert('Terimakasih, Dokument Anda Sudah Diteruskan Ke Admin');</script>";
+    echo "<script>location='index.php';</script>";
+
+			if ($upload == true) {
+				echo "Upload berhasil";
+			}else{
+				echo "Upload gagal";
+			}
+		}else {
+			echo "Format harus Doc atau Pdf";
+		}
+	}else {
+		echo "ukuran file kamu ".$ukuran_file.", file tidak boleh lebih dari 3MB";
+	}
+
+}else{ // else validasi error
+        echo 'Ada '.$error.' error. Gagal upload.';
+    }
+     
+
+?>

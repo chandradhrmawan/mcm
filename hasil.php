@@ -119,11 +119,11 @@ function hasil_soal($id_user)
     </tr>
 
      <tr>
-      <td class="gray">Nilai Andal</td>
+      <td class="gray">Nilai Anda</td>
       <td><?=$hasil['nilai_anda']?></td>
     </tr>
 
-
+s
     <!-- <tr>
       <th class="gray">Jumlah Soal</th>
       <th class="gray">Jawaban Benar</th>

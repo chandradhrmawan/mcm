@@ -110,7 +110,10 @@ include 'koneksi.php';
                                           Nama Divisi
                                       </th> 
                                       <th>
-                                          Tanggal 
+                                          Tanggal Mulai
+                                      </th>
+                                      <th>
+                                          Tanggal Berakhir
                                       </th>
                                       <th>
                                          Persyaratan
@@ -123,12 +126,13 @@ include 'koneksi.php';
                                 </thead>
                                 <tbody>
                                     <?php $nomor=1; ?>
-        <?php $ambil = $koneksi->query("SELECT * FROM lowongan"); ?>
+        <?php $ambil = $koneksi->query("SELECT * FROM lowongan WHERE DATE(NOW()) BETWEEN tanggal_mulai AND tanggal_selesai"); ?>
         <?php while($pecah = $ambil->fetch_assoc()) { ?>
         <tr>
             <td><?php echo $nomor; ?></td>
             <td><?php echo $pecah['nama_divisi']; ?></td>
             <td><?php echo $pecah['tanggal_mulai']; ?></td>
+            <td><?php echo $pecah['tanggal_selesai']; ?></td>
             <td><?php echo $pecah['persyaratan']; ?></td>
             <td><a href="erequiretment.php?id=<?php echo $pecah['id_lowongan']; ?>">Daftar</a></td>
             
@@ -145,6 +149,13 @@ include 'koneksi.php';
 
                   
                 </div>
+
+
+
+
+
+
+
             </div>
         </section><!-- About end -->
 

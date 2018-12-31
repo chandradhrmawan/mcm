@@ -7,7 +7,7 @@ include 'koneksi.php';
 
 //jika tidak session pelanggan (belum login)
 if (!isset($_SESSION["user"])) {
-	 echo "<script>alert('Silahkan login terlebih dahulu');</script>";
+     echo "<script>alert('Silahkan login terlebih dahulu');</script>";
         echo "<script>location='login.php';</script>";
 }
 
@@ -33,13 +33,13 @@ if (!isset($_SESSION["user"])) {
         <!-- Bootsnav -->
         <link rel="stylesheet" href="css/bootsnav.css">
         <!-- Fancybox -->
-        <link rel="stylesheet" type="text/css" href="css/jquery.fancybox.css?v=2.1.5" media="screen" />	
+        <link rel="stylesheet" type="text/css" href="css/jquery.fancybox.css?v=2.1.5" media="screen" /> 
         <!-- Custom stylesheet -->
         <link rel="stylesheet" href="css/custom.css" />
         <!--[if lt IE 9]>
                 <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
-  	</head>
+    </head>
 
 
 <body>
@@ -58,82 +58,107 @@ if (!isset($_SESSION["user"])) {
 <h2>Pengumuman Lulus Berkas</h2>
 
 <table class="table table-bordered">
-	<thead>
-		<tr>
-			<th>
-				Nama
-			</th>
-			
-			<th>
-				No_Telp
-			</th>
-			<th>
-				Email
-			</th>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>
+                Nama
+            </th>
+            
+            <th>
+                No_Telp
+            </th>
+            <th>
+                Email
+            </th>
             <th>
                 Universitas
             </th>
-		</tr>
-	</thead>
-	<tbody>
-		
-		<?php $ambil = $koneksi->query("SELECT * FROM biodata_user WHERE status_pelamar = 'Diterima'"); ?>
-		<?php while($pecah = $ambil->fetch_assoc()) { ?>
-		<tr>
-			
-			<td><?php echo $pecah['nama']; ?></td>
-			<td><?php echo $pecah['no_telp']; ?></td>
-			<td><?php echo $pecah['email']; ?></td>
-			<td><?php echo $pecah['nama_perguruan_tinggi']; ?></td>
-		</tr>
-		
-		<?php } ?>
-	</tbody>
+            <th>Nama divisi</th>
+            <th>
+                Status
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+      <?php   $id_user = $_SESSION["user"]["id_user"]; ?>
+        
+        <?php $ambil = $koneksi->query("SELECT *,IF(status_pelamar=1, 'DITERIMA', IF(status_pelamar=2, 'DITOLAK', 'MENUNGGU HASIL')) AS status 
+                                        FROM biodata_user
+                                        JOIN lowongan ON biodata_user.id_lowongan=lowongan.id_lowongan
+                                        WHERE id_user='$id_user'"); ?>
+
+        <?php while($pecah = $ambil->fetch_assoc()) { ?>
+        <tr>
+            <td><?php echo $pecah['id_lowongan']; ?></td>
+            <td><?php echo $pecah['nama']; ?></td>
+            <td><?php echo $pecah['no_telp']; ?></td>
+            <td><?php echo $pecah['email']; ?></td>
+            <td><?php echo $pecah['nama_perguruan_tinggi']; ?></td>
+            <td><?php echo $pecah['nama_divisi']; ?></td>
+            <td><?php echo $pecah['status']; ?></td>
+        </tr>
+        
+        
+    </tbody>
 </table>
 
-<div class="row">
- <div class="col-md-7">
-  <div class="alert alert-info">
-    <form method="post">
-   <p>
-    Note : <br>
-    
-        <?php $ambil=$koneksi->query("SELECT * FROM jadwal ORDER BY rand() LIMIT 1");   ?>
+
+<?php if ($pecah['status_pelamar']== 1) : ?>
+            <div class="row">
+         <div class="col-md-7">
+          <div class="alert alert-info">
+        
+           <p>
+            Note : <br>
+        <!-- Tapi di query ini harus di kasih paramerter  -->
+      
+      <?php   $idlowonganfix = $pecah['id_lowongan'];  ?>
+
+                <?php $ambil=$koneksi->query("SELECT * FROM jadwal WHERE id_lowongan='$idlowonganfix'");   ?>
+                <?php while ($pecah=$ambil->fetch_assoc()) {  ?> 
+       <!-- ini jdnya bukan jadwal tapi lowongan  -->
+       <!-- abis dari ini langsung ke soal sesuai lowongan nya  -->
+      
+            <strong>Bagi Nama Yang Tercantum Diatas Dapat Mengikuti  Tes Ujian Online  </strong><br>
+            <strong>Yang Diadakan Pada Tanggal <?php echo $pecah['tanggal_mulai']; ?></strong><br>
+            <strong>Dan Berakhir Pada Tanggal <?php echo $pecah['tanggal_akhir']; ?></strong><br>
+            
+            <?php if ($pecah['tanggal_mulai'] < dateNow() AND $pecah['tanggal_akhir'] > dateNow()): ?>
+                
+            <strong>Pada Link Berikut :  <a href="soal.php?id=<?php echo $pecah['id_lowongan']; ?>"  class="btn btn-primary">  Soal </a></strong><br>
+
+            <?php else : ?>
+
+                    <strong>Maaf link soal tidak bisa diakses </strong> <a href="#" class="btn btn-primary">Soal</a>
+            
+            <?php endif ?>
+
+           </p>
+           <?php } ?>
+       
 
 
-    
-       <?php while ($pecah=$ambil->fetch_assoc()) {  
 
-             if ($pecah['tanggal_mulai'] > DateNow() ) {
-               $dis = "disabled";
-            }else{
-                $dis = "";
-            }
+          </div>
+         </div>
+        </div>
 
-        ?> 
-    <input type="hidden" name="id_jadwal" value="<?=$pecah['id_jadwal']?>">    
-    <strong>Bagi Nama Yang Tercantum Diatas Dapat Mengikuti  Tes Ujian Online  </strong><br>
-    <strong>Yang Diadakan Pada Tanggal <?php echo $pecah['tanggal_mulai']; ?></strong><br>
-    <strong>Pada Link Berikut : <button name="soal" class="btn btn-primary" <?php echo $dis; ?>> Soal </button></strong><br>
-    <strong>Bagi rekan rekan yang belum lolos pada tahap seleksi kali ini, kami mengucapkan terim kasih dan semoga sukses</strong><br>
-
-   </p>
-   <?php } ?>
-   </form>
+<?php else: ?>
+<?php echo "Maaf anda belum lolos pada tahap seleksi kali ini, kami mengucapkan terim kasih dan semoga sukses" ?>
+<?php endif ?>
 
 
 
-  </div>
- </div>
-</div>
+<?php } ?>
 
 
 
-	</div>
+    </div>
 
-	</section>
+    </section>
 
-	<?php include 'footer.php'; ?>
+    <?php include 'footer.php'; ?>
 
 
 
@@ -152,34 +177,8 @@ if (!isset($_SESSION["user"])) {
         <script src="js/jquery.scrollUp.min.js"></script>
 
         <script src="js/main.js"></script>
-    </body>	
-</html>	
+    </body> 
+</html> 
 
 
 
-<?php 
-
-if (isset($_POST['soal'])) {
-
-    $id_jadwal = $_POST['id_jadwal'];
-
-    $ambil=$koneksi->query("SELECT * FROM jadwal WHERE id_jadwal = '$id_jadwal'");
-
-    while ($pecah=$ambil->fetch_assoc()):
-
-        if ($pecah['tanggal_akhir'] >= dateNow()):
-            echo "<script>location='soal.php';</script>";
-        else:
-            echo "<script>alert('Mohon maaf link untuk tes belum terbuka')</script>";
-            echo "<script>location='pengumuman.php';</script>";
-        endif;
-
-    endwhile;      
-   
-}
-
-
-
-
-
- ?>

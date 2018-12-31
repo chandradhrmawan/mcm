@@ -28,7 +28,7 @@ $pecah = $ambil->fetch_assoc();
  <?php 
 
 if (isset($_POST['ubah'])) {
-	//jika foto dirubah
+	//jika lowongan dirubah
 	
 		$koneksi->query("UPDATE lowongan SET nama_divisi='$_POST[nama_divisi]', tanggal_mulai='$_POST[tanggal_mulai]', persyaratan='$_POST[persyaratan]' WHERE id_lowongan='$_GET[id]'");
 

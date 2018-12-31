@@ -31,7 +31,7 @@ elseif (file_exists("../npwp/$npwp")) {
 
 
 
-$koneksi->query("DELETE FROM biodata_user WHERE id_pelamar='$_GET[id]'");
+$koneksi->query("UPDATE biodata_user SET status_pelamar ='2' WHERE id_pelamar='$_GET[id]'");
 
 echo "<script> alert('Pelamar berhasil dihapus');</script>";
 echo "<script>location='index.php?halaman=datapelamar';</script>";

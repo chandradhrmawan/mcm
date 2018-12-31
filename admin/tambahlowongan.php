@@ -7,11 +7,11 @@
 	</div>
 	<div class="form-group">
 		<label>Tanggal Mulai</label>
-		<input type="text" name="tanggal_mulai" class="form-control">
+		<input type="date" name="tanggal_mulai" class="form-control">
 	</div>
 	<div class="form-group">
 		<label>Tanggal Selesai</label>
-		<input type="text" name="tanggal_selesai" class="form-control">
+		<input type="date" name="tanggal_selesai" class="form-control">
 	</div>
 	<div class="form-group">
 		<label>Persyaratan</label>

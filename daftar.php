@@ -6,7 +6,7 @@ include 'koneksi.php';
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Form Register Sederhana dengan Bootstrap</title>
+<title>Form Register</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -50,7 +50,7 @@ include 'koneksi.php';
               <div class="form-group">
             <label class="control-label col-xs-3">No Telephone:</label>
             <div class="col-xs-9">
-                <input type="text" maxlength="12" class="form-control" name="no_telp" placeholder="Masukan No Telephone" required>
+                <input type="tex" maxlength="12" class="form-control" name="no_telp" placeholder="Masukan No Telephone" required>
             </div>
         </div>
               
@@ -81,14 +81,13 @@ if (isset($_POST['daftar'])){
     echo "Field tidak boleh kosong";
     }else {
     $koneksi->query ("INSERT INTO user VALUES ('','$nama','$username','$password','$confirm_password','$email','$no_telp')");
-   
-    //  if($tes){
-    //     echo "berhasil";
-    // }else{
-    // die("salah");
-    // }
-    echo "<script>window.alert('DATA BERHASIL DISIMPAN, SILAHKAN LOGIN !')
-    window.location='login.php'</script>";
+
+    if($koneksi){
+        echo "<script>window.alert('DATA BERHASIL DISIMPAN, SILAHKAN LOGIN !')
+        window.location='login.php'</script>";
+    }else{
+        echo "GAGAL";
+    }
     
 }
 }

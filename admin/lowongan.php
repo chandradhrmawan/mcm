@@ -11,7 +11,10 @@
   Nama Divisi
  </th> 
  <th>
-Tanggal 
+Tanggal Mulai
+</th> 
+<th>
+Tanggal Selesai
 </th>
 <th>
 Persyaratan
@@ -29,6 +32,7 @@ Persyaratan
 			<td><?php echo $nomor; ?></td>
 			<td><?php echo $pecah['nama_divisi']; ?></td>
 			<td><?php echo $pecah['tanggal_mulai']; ?></td>
+			<td><?php echo $pecah['tanggal_selesai']; ?></td>
 			<td><?php echo $pecah['persyaratan']; ?></td>
 			
 			<td>

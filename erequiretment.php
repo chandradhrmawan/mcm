@@ -84,7 +84,7 @@ if (!isset($_SESSION["user"])) {
     
     <div class="form-group">
     <label>Alamat :</label>
-    <textarea name="alamat" rows="5" cols="60" class="form-control" required=""></textarea> 
+    <textarea name="alamat" rows="5" cols="60" class="form-control" required="" ></textarea> 
     </div>
 
     <div class="form-group">
@@ -121,13 +121,13 @@ if (!isset($_SESSION["user"])) {
             <option value="S2">S2</option>
          </select>
          
-          <input type="text" placeholder="Program Studi" name="pendidikan" class="form-control"> 
+          <input type="text" placeholder="Program Studi" name="pendidikan" class="form-control" required=""> 
     </div>
     
     <div class="form-group">
     <label> Perguruan Tinggi </label>
     <input type="radio" name="perguruan_tinggi" value="ptn" required="">PTN
-        <input type="radio" name="perguruan_tinggi" value="pts" required="">PTS
+        <input type="radio" name="perguruan_tinggi" value="pts" >PTS
     (Terakreditasi)
     </div>
 
@@ -140,7 +140,7 @@ if (!isset($_SESSION["user"])) {
     
     <div class="form-group">
     <label> IPK </label>
-    <input type="text" name="ipk" value="0,00" class="form-control" required="">
+    <input type="text" maxlength="4" name="ipk" value="0,00" class="form-control" required="" >
     </div>
     
     <div class="form-group">
@@ -158,6 +158,7 @@ if (!isset($_SESSION["user"])) {
     <textarea name="deskripsi_singkat" rows="5" cols="60" class="form-control" required=""></textarea>  
     </div>
     
+
     <div class="form-group">
     <label>CV</label>
     <input type="file" name="cv" required="">
@@ -189,75 +190,109 @@ if (!isset($_SESSION["user"])) {
     </div>
 
     
-
         <button name="simpan" class="btn btn-primary">Simpan</button>
     
 </form>
 </div>
+
 <?php 
 
 if (isset($_POST["simpan"])){
+    function format($file){
+        return pathinfo($file, PATHINFO_EXTENSION);
+    }
+
+    //File Name
+    $cv                  = date("YmdHis").$_FILES['cv']['name'];                       // DOC/PDF
+    $ijazah              = date("YmdHis").$_FILES['ijazah']['name'];                   // PDF/JPG
+    $sertifikat_keahlian = date("YmdHis").$_FILES['sertifikat_keahlian']['name'];      // PDF/JPG
+    $fotocopy_ktp        = date("YmdHis").$_FILES['fotocopy_ktp']['name'];             // PDF/JPG
+    $npwp                = date("YmdHis").$_FILES['npwp']['name'];                     // PDF/Jpg
+
+    // Format File
+    $format_cv                  = format($cv);
+    $format_ijazah              = format($ijazah);
+    $format_sertifikat_keahlian = format($sertifikat_keahlian);
+    $format_fotocopy_ktp        = format($fotocopy_ktp);
+    $format_npwp                = format($npwp);
+    
+   //Size File 
+    $size_cv = $_FILES['cv']['size'];
+    $size_ijazah = $_FILES['ijazah']['size'];
+    $size_sertifikat_keahlian = $_FILES['sertifikat_keahlian']['size'];
+    $size_fotocopy_ktp = $_FILES['fotocopy_ktp']['size'];
+    $size_npwp = $_FILES['npwp']['size'];
+    
+    // File Asal
+    $file_asal = array(
+                $_FILES['cv']['tmp_name'],
+                $_FILES['ijazah']['tmp_name'],
+                $_FILES['sertifikat_keahlian']['tmp_name'],
+                $_FILES['fotocopy_ktp']['tmp_name'],
+                $_FILES['npwp']['tmp_name'],
+
+    );
+
+    if (empty($format_cv) || empty($format_ijazah) || empty($format_sertifikat_keahlian) ||  empty($format_fotocopy_ktp) ||  empty($format_npwp)  ) {
+        echo "File Masih Ada yg Belum Terupload";
+    }else{
+        // Seleksi Size
+        if ($size_cv <= 3000000 ) {
+            echo "File Cv Anda Tidak Sesuai Ukuran";
+        }
+        if ($size_ijazah <= 3000000 ) {
+            echo "File Ijazah Anda Tidak Sesuai Ukuran";
+        }
+        if ($size_sertifikat_keahlian <= 3000000 ) {
+            echo "File Sertifikat Keahlian Anda Tidak Sesuai Ukuran";
+        }
+        if ($size_fotocopy_ktp <= 2000000 ) {
+            echo "File Foto Copy KTP Anda Tidak Sesuai Ukuran";
+        }
+        if ($size_npwp <= 3000000 ) {
+            echo "File NPWP Anda Tidak Sesuai Ukuran";
+        }
+
+
+        // Seleksi Format File
+        if (($format_cv != "docx") or ($format_cv != "pdf")) {
+            echo "Format File Cv anda Salah , DOCX/PDF";
+        }
+         if (($format_ijazah != "pdf") or ($format_ijazah != "jpg")) {
+            echo "Format File Ijazah anda Salah , PDF/JPG";
+        }
+         if (($format_sertifikat_keahlian != "pdf") or ($format_sertifikat_keahlian != "jpg")) {
+            echo "Format File Sertifikat Keahlian anda Salah , PDF/JPG";
+        }
+         if (($format_fotocopy_ktp != "pdf") or ($format_fotocopy_ktp != "jpg")) {
+            echo "Format File Foto Copy KTP anda Salah , PDF/JPG";
+        }
+         if (($format_npwp != "pdf") or ($format_npwp != "jpg")) {
+            echo "Format File NPWP anda Salah , PDF/JPG";
+        }
+        
+
+        $file_tujuan = "cv/".$namacvfix;
+            $jum = count($file_asal);
+
+            for ($i=0; $i < $jum ; $i++) { 
+                $upload = move_uploaded_file($file_asal[$i], $file_tujuan);
+            }
+
+            //simpan ke db biodata_user
+              $koneksi->query("INSERT INTO biodata_user(id_user,id_lowongan,nama,tanggal_lahir,no_telp,alamat,jenis_kelamin,status,no_ktp,email,pendidikan,perguruan_tinggi,nama_perguruan_tinggi,ipk,id_skype,pengalaman_kerja,deskripsi_singkat,cv,ijazah,sertifikat_keahlian,fotocopy_ktp,npwp,status_pelamar ) VALUES ('$id_user','$id_lowongan','$nama','$tanggal_lahir','$no_telp','$alamat','$jenis_kelamin','$status','$no_ktp','$email','$pendidikan','$perguruan_tinggi','$nama_perguruan_tinggi','$ipk','$id_skype','$pengalaman_kerja','$deskripsi_singkat','$namacvfix','$namaijazahfix','$namasertifikatkeahlianfix','$namafotocopyktpfix','$namanpwpfix'");
+
+            echo "Upload berhasil";
+            echo "<script>alert('Terimakasih, Dokument Anda Sudah Diteruskan Ke Admin');</script>";
+            echo "<script>location='index.php';</script>";
+    }
+
     //upload dulu foto dokument
-    $namacv =$_FILES["cv"]["name"];
-    $lokasicv =$_FILES["cv"]["tmp_name"];
-    $namacvfix =date("YmdHis").$namacv;
-    move_uploaded_file($lokasicv, "cv/$namacvfix");
-
- //upload dulu foto dokument
-    $namaijazah =$_FILES["ijazah"]["name"];
-    $lokasiijazah =$_FILES["ijazah"]["tmp_name"];
-    $namaijazahfix =date("YmdHis").$namaijazah;
-    move_uploaded_file($lokasiijazah, "ijazah/$namaijazahfix");
-
-     //upload dulu foto dokument
-    $namasertifikatkeahlian =$_FILES["sertifikat_keahlian"]["name"];
-    $lokasisertifikatkeahlian =$_FILES["sertifikat_keahlian"]["tmp_name"];
-    $namasertifikatkeahlianfix =date("YmdHis").$namasertifikatkeahlian;
-    move_uploaded_file($lokasisertifikatkeahlian, "sertifikat_keahlian/$namasertifikatkeahlianfix");
-
-     //upload dulu foto dokument
-    $namafotocopyktp =$_FILES["fotocopy_ktp"]["name"];
-    $lokasifotocopyktp =$_FILES["fotocopy_ktp"]["tmp_name"];
-    $namafotocopyktpfix =date("YmdHis").$namafotocopyktp;
-    move_uploaded_file($lokasifotocopyktp, "fotocopy_ktp/$namafotocopyktpfix");
-
-     //upload dulu foto dokument
-    $namanpwp =$_FILES["npwp"]["name"];
-    $lokasinpwp =$_FILES["npwp"]["tmp_name"];
-    $namanpwpfix =date("YmdHis").$namanpwp;
-    move_uploaded_file($lokasinpwp, "npwp/$namanpwpfix");
-
-    //  //upload dulu foto dokument
-    // $namadokument =$_FILES["dokument"]["name"];
-    // $lokasidokument =$_FILES["dokument"]["tmp_name"];
-    // $namafix =date("YmdHis").$namadokument;
-    // move_uploaded_file($lokasidokument, "dokument/$namafix");
-
-
-   $id_lowongan = $_GET['id'];
-    $nama=$_POST["nama"];
-    $tanggal_lahir=$_POST["tanggal_lahir"];
-    $no_telp=$_POST["no_telp"];
-    $alamat=$_POST["alamat"];
-    $jenis_kelamin=$_POST["jenis_kelamin"];
-    $status=$_POST["status"];
-    $no_ktp=$_POST["no_ktp"];
-    $email=$_POST["email"];
-    $pendidikan=$_POST["pendidikan"];
-    $perguruan_tinggi=$_POST["perguruan_tinggi"];
-    $nama_perguruan_tinggi=$_POST["nama_perguruan_tinggi"];
-    $ipk=$_POST["ipk"];
-    $id_skype=$_POST["id_skype"];
-    $pengalaman_kerja=$_POST["pengalaman_kerja"];
-    $deskripsi_singkat=$_POST["deskripsi_singkat"];
-
-    //simpan ke db biodata_user
-    $koneksi->query("INSERT INTO biodata_user(id_lowongan,nama,tanggal_lahir,no_telp,alamat,jenis_kelamin,status,no_ktp,email,pendidikan,perguruan_tinggi,nama_perguruan_tinggi,ipk,id_skype,pengalaman_kerja,deskripsi_singkat,cv,ijazah,sertifikat_keahlian,fotocopy_ktp,npwp) VALUES ('$id_lowongan','$nama','$tanggal_lahir','$no_telp','$alamat','$jenis_kelamin','$status','$no_ktp','$email','$pendidikan','$perguruan_tinggi','$nama_perguruan_tinggi','$ipk','$id_skype','$pengalaman_kerja','$deskripsi_singkat','$namacvfix','$namaijazahfix','$namasertifikatkeahlianfix','$namafotocopyktpfix','$namanpwpfix')");
-
-    echo "<script>alert('Terimakasih, Dokument Anda Sudah Diteruskan Ke Admin');</script>";
-    echo "<script>location='index.php';</script>";
-
+    
 }
+
+
+
 
 
  ?>

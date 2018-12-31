@@ -84,29 +84,7 @@ $pecah = $ambil->fetch_assoc();
 
 </div>  
 
-      <form method="post">
-	<div class="form-group">
-		<label>Status</label>
-		<select class="form-control" name="status_pelamar">
-			<option value="">Pilih Status</option>
-			<option value="1">Diterima</option>
-			<option value="2">Ditolak</option>
-		</select>
-	</div>
-	<button class="btn btn-primary" name="proses">Proses</button>
-</form>     
-<?php 
+      
 
-if (isset($_POST["proses"])) {
- 
-
-    $statuspelamar = $_POST["status_pelamar"];
-    $koneksi->query("UPDATE biodata_user SET status_pelamar='$statuspelamar' WHERE id_pelamar='$_GET[id]'");
-
-    echo "<script>alert('Data Berhasil di Update');</script>";
-    echo "<script>location='index.php?halaman=berkaspelamarlulus';</script>";
-}
-
- ?> 
 </div>
 </div>
