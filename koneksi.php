@@ -26,5 +26,10 @@ function debux($str, $ret=FALSE)
 	echo "</pre>";
 	($ret==TRUE) ? die() : "";
 }
+function koneksi()
+{
+	$conn = mysqli_connect("localhost", "root", "", "mcm");
+	return $conn;
+}
 
 ?>
