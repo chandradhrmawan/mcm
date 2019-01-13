@@ -11,9 +11,14 @@ if (!isset($_SESSION["user"])) {
         echo "<script>location='login.php';</script>";
 }
 
+$id_user = $_SESSION['user']['id_user'];
+$cek_duplikasi=$koneksi->query("SELECT * FROM biodata_user WHERE id_user = '$id_user'");
+
+if($cek_duplikasi->num_rows != 0){
+    echo "<script> alert('Anda Sudah Pernah Mengisi Biodata'); window.location.replace('pengumuman.php')</script>";
+}
+
  ?>
-
-
 
 
 <!DOCTYPE html>

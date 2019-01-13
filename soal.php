@@ -118,65 +118,28 @@ window.onload = function () {
 
 <section class="section">
     <p class="numb"><strong>No <?=$no?></strong></p>
-    <p class="section-description"><?=$key[1]?> </p>
+    <p class="section-description"><?=$key[2]?> </p>
     <input type="hidden" name="soal[<?=$key[0]?>]" value="<?=$key[0]?>">
-    <input type="hidden" name="jawaban[<?=$key[0]?>]" value="<?=$key[7]?>">
+    <input type="hidden" name="jawaban[<?=$key[0]?>]" value="<?=$key[8]?>">
     <input type="hidden" name="my_val" value="soal">
     <input type="hidden" name="id_user" value="<?=$id_user?>">
     <div class="form-group ans">
-        <label><input type="radio" name="jawab[<?=$key[0]?>]" value="a"> A. <?=$key[2]?></label>
+        <label><input type="radio" name="jawab[<?=$key[0]?>]" value="a"> A. <?=$key[3]?></label>
     </div>
     <div class="form-group ans">
-        <label><input type="radio" name="jawab[<?=$key[0]?>]" value="b"> B. <?=$key[3]?></label>
+        <label><input type="radio" name="jawab[<?=$key[0]?>]" value="b"> B. <?=$key[4]?></label>
     </div>
     <div class="form-group ans">
-        <label><input type="radio" name="jawab[<?=$key[0]?>]" value="c"> C. <?=$key[4]?></label>
+        <label><input type="radio" name="jawab[<?=$key[0]?>]" value="c"> C. <?=$key[5]?></label>
     </div>
     <div class="form-group ans">
-        <label><input type="radio" name="jawab[<?=$key[0]?>]" value="d"> D. <?=$key[5]?></label>
+        <label><input type="radio" name="jawab[<?=$key[0]?>]" value="d"> D. <?=$key[6]?></label>
     </div>
     <div class="form-group ans">
-        <label><input type="radio" name="jawab[<?=$key[0]?>]" value="e"> E. <?=$key[6]?></label>
+        <label><input type="radio" name="jawab[<?=$key[0]?>]" value="e"> E. <?=$key[7]?></label>
     </div>
    
-    <html>
-
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-a {
-  text-decoration: none;
-  display: inline-block;
-  padding: 8px 16px;
-}
-
-a:hover {
-  background-color: #ddd;
-  color: black;
-}
-
-.previous {
-  background-color: #f1f1f1;
-  color: black;
-}
-
-.next {
-  background-color: #4CAF50;
-  color: white;
-}
-
-.round {
-  border-radius: 50%;
-}
-</style>
-</head>
-<body>
-<a href="previous.php" class="previous">&laquo; Previous</a>
-<a href="soal.php?id=<?php echo $key['id']='32'; ?>" class="next">Next &raquo;</a>
-
-
-</body>
-</html> 
+    
 <hr>
 </section>
 

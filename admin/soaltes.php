@@ -7,6 +7,9 @@
 				No
 			</th>
 			<th>
+				Kode Soal
+			</th>
+			<th>
 				Soal
 			</th>
 			<th>
@@ -41,6 +44,7 @@
 		<?php while($pecah = $ambil->fetch_assoc()) { ?>
 		<tr>
 			<td><?php echo $nomor; ?></td>
+			<td><?php echo $pecah['kode_soal']; ?></td>
 			<td><?php echo $pecah['nama_soal']; ?></td>
 			<td><?php echo $pecah['a']; ?></td>
 			<td><?php echo $pecah['b']; ?></td>

@@ -23,11 +23,13 @@ function hasil_soal($id_user)
   
   $result1 = $conn->query("SELECT * FROM jawaban WHERE id_user = '$id_user'");
   $result2 = $conn->query("SELECT * FROM jawaban WHERE skor = '1' AND id_user = '$id_user'");
-
   $result3 = $conn->query("SELECT * FROM user WHERE id_user = '$id_user'")->fetch_all();
+  $result4 = $conn->query("SELECT * FROM jawaban WHERE skor = '0' AND id_user = '$id_user'");
+
 
   $data['jumlah_soal']    = $result1->num_rows;
   $data['jawaban_benar']  = $result2->num_rows;
+  $data['jawaban_salah']  = $result4->num_rows;
   $data['nilai_anda']     = $result2->num_rows;
   $data['nama']           = $result3[0][2];
 
@@ -116,6 +118,10 @@ function hasil_soal($id_user)
      <tr>
       <td class="gray">Jawaban Benar</td>
       <td><?=$hasil['jawaban_benar']?></td>
+    </tr>     
+    <tr>
+      <td class="gray">Jawaban Salah</td>
+      <td><?=$hasil['jawaban_salah']?></td>
     </tr>
 
      <tr>
@@ -123,17 +129,7 @@ function hasil_soal($id_user)
       <td><?=$hasil['nilai_anda']?></td>
     </tr>
 
-s
-    <!-- <tr>
-      <th class="gray">Jumlah Soal</th>
-      <th class="gray">Jawaban Benar</th>
-      <th class="gray">Nilai Anda</th>
-    </tr>
-    <tr>
-      <td><?=$hasil['jumlah_soal']?></td>
-      <td><?=$hasil['jawaban_benar']?></td>
-      <td><?=$hasil['nilai_anda']?></td>
-    </tr> -->
+
 
   </table>
 

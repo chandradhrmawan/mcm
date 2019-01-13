@@ -10,7 +10,6 @@ if (!isset($_SESSION["user"])) {
      echo "<script>alert('Silahkan login terlebih dahulu');</script>";
         echo "<script>location='login.php';</script>";
 }
-
 ?>
 
 

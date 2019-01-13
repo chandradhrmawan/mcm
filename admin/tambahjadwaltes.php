@@ -5,7 +5,7 @@
 		}
 	}
 </style>
-<h2>Tambah Soal</h2>
+<h2>Tambah Jadwal</h2>
 
 <form method="post" enctype="multipart/form-data">
 

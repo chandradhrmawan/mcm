@@ -64,6 +64,8 @@ font-size: 16px;"> <a href="logout.php" class="btn btn-danger square-btn-adjust"
                     <li> <a href="index.php?halaman=soaltes"><i class="fa fa-dashboard fa-3x"></i>Soal Tes </a></li>
                     <li> <a href="index.php?halaman=jadwal"><i class="fa fa-dashboard fa-3x"></i>Jadwal Tes </a></li>
                     <li> <a href="index.php?halaman=hasiltes"><i class="fa fa-dashboard fa-3x"></i>Hasil Tes </a></li>
+                    <li> <a href="index.php?halaman=jadwalinterview"><i class="fa fa-dashboard fa-3x"></i>Jadwal Interview </a></li>
+                    <li> <a href="index.php?halaman=hasilinterview"><i class="fa fa-dashboard fa-3x"></i>Hasil Interview </a></li>
                     
                      <li>
         
@@ -157,7 +159,14 @@ font-size: 16px;"> <a href="logout.php" class="btn btn-danger square-btn-adjust"
                     {
                         include 'hasiltes.php';
                     }            
-    
+                else if ($_GET['halaman']=="jadwalinterview") 
+                    {
+                        include 'jadwalinterview.php';
+                    }    
+                else if ($_GET['halaman']=="hasilinterview") 
+                    {
+                        include 'hasilinterview.php';
+                    }    
     
 
                 }

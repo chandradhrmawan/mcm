@@ -5,9 +5,29 @@
 		}
 	}
 </style>
+
+<?php
+
+$ambil_kode=$koneksi->query("SELECT max(kode_soal) as maxKode FROM soal");
+$data=$ambil_kode->fetch_assoc();
+$kodeBarang = $data['maxKode'];
+
+$noUrut = (int) substr($kodeBarang, 3, 3);
+
+$noUrut++;
+
+$char = "SL";
+$newID = $char . sprintf("%03s", $noUrut);
+
+?>
+
 <h2>Tambah Soal</h2>
 
 <form method="post" enctype="multipart/form-data">
+	<div class="form-group col-md-8">
+		<label>Kode Soal</label>
+		<input type="text" name="kode_soal" class="form-control" value="<?php echo $newID; ?>" readonly style="width: 30% !important;">
+	</div>
 	<div class="form-group col-md-8">
 		<label>Soal</label>
 		<textarea name="nama_soal" class="form-control" rows="10" placeholder="Isi Soal" style="width: 50% !important;"></textarea>
@@ -73,7 +93,7 @@
 
 if (isset($_POST['save'])) {
 
-	$koneksi->query("INSERT INTO soal (nama_soal,a,b,c,d,e,jawaban,id_lowongan) VALUES('$_POST[nama_soal]','$_POST[a]','$_POST[b]','$_POST[c]','$_POST[d]','$_POST[e]','$_POST[jawaban]','$_POST[lowongan]')");
+	$koneksi->query("INSERT INTO soal (kode_soal,nama_soal,a,b,c,d,e,jawaban,id_lowongan) VALUES('$_POST[kode_soal]','$_POST[nama_soal]','$_POST[a]','$_POST[b]','$_POST[c]','$_POST[d]','$_POST[e]','$_POST[jawaban]','$_POST[lowongan]')");
 
 	echo "<div class='alert alert-info'>Data Soal tersimpan</div>";
 	echo "<meta http-equiv='refresh' content='1;url=index.php?halaman=soaltes'>";

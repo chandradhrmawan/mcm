@@ -77,12 +77,31 @@
     
     // 26.000.000 untuk 25 MB
     $(document).ready(function(){
-        validate_upload_file("cv");
+        validate_upload_file_cv("cv");
         validate_upload_file("ijazah");
         validate_upload_file("sertifikat_keahlian");
         validate_upload_file("fotocopy_ktp");
         validate_upload_file("npwp");
     });
+
+function validate_upload_file_cv(file)
+    {
+        uploadField = document.getElementById(file);
+
+        uploadField.onchange = function() {
+
+            var val = this.value.toLowerCase();
+            var regex = new RegExp("(.*?)\.(pdf|doc|docx)$");
+
+            if(!(regex.test(val))) {
+                swal("Upload Failed", "Maaf, File yang diperbolehkan hanya Pdf, Doc, img, jpg, png, JPEG", "error");
+                this.value = "";
+            }else if(this.files[0].size > 3000000){
+                swal("warning", "Data Upload Tidak Boleh > 3MB", "error");
+                this.value = "";
+            }
+        };
+    }    
 
     function validate_upload_file(file)
     {
@@ -91,7 +110,7 @@
         uploadField.onchange = function() {
 
             var val = this.value.toLowerCase();
-            var regex = new RegExp("(.*?)\.(pdf|doc|docx|jpg|PNG|png|jpeg|JPEG)$");
+            var regex = new RegExp("(.*?)\.(pdf|jpg|PNG|png|jpeg|JPEG)$");
 
             if(!(regex.test(val))) {
                 swal("Upload Failed", "Maaf, File yang diperbolehkan hanya Pdf, Doc, img, jpg, png, JPEG", "error");
