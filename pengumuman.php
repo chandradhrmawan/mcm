@@ -60,32 +60,25 @@ if (!isset($_SESSION["user"])) {
     <thead>
         <tr>
             <th>ID</th>
-            <th>
-                Nama
-            </th>
-            
-            <th>
-                No_Telp
-            </th>
-            <th>
-                Email
-            </th>
-            <th>
-                Universitas
-            </th>
+            <th>Nama</th>
+            <th>No_Telp</th>
+            <th>Email</th>
+            <th>Universitas</th>
             <th>Nama divisi</th>
-            <th>
-                Status
-            </th>
+            <th>Status</th>
+            <th>Jadwal Interview</th>
         </tr>
     </thead>
     <tbody>
       <?php   $id_user = $_SESSION["user"]["id_user"]; ?>
         
-        <?php $ambil = $koneksi->query("SELECT *,IF(status_pelamar=1, 'DITERIMA', IF(status_pelamar=2, 'DITOLAK', 'MENUNGGU HASIL')) AS status 
-                                        FROM biodata_user
-                                        JOIN lowongan ON biodata_user.id_lowongan=lowongan.id_lowongan
-                                        WHERE id_user='$id_user'"); ?>
+        <?php $ambil = $koneksi->query("SELECT *,
+                        IF(status_pelamar=1, 'DITERIMA', 
+                        IF(status_pelamar=2, 'DITOLAK', 
+                        'MENUNGGU HASIL')) AS status 
+                        FROM biodata_user
+                        LEFT JOIN lowongan ON biodata_user.id_lowongan=lowongan.id_lowongan
+                        WHERE id_user='$id_user'"); ?>
 
         <?php while($pecah = $ambil->fetch_assoc()) { ?>
         <tr>

@@ -107,12 +107,12 @@ window.onload = function () {
 <?php
     $result = $conn->query("SELECT * FROM soal WHERE id_lowongan='$_GET[id]'")->fetch_all();
 
-    $id_user = $_SESSION['user']['id_user'];
-    //debux($result);
+    $id_user        = $_SESSION['user']['id_user'];
+    $sql_lowongan   = $conn->query("SELECT id_pelamar FROM biodata_user 
+                                    WHERE id_user='$id_user'")->fetch_assoc();
+
     $no=1;
     foreach ($result as $key):
-
-        //debux($key);
 
 ?>
 
@@ -123,6 +123,10 @@ window.onload = function () {
     <input type="hidden" name="jawaban[<?=$key[0]?>]" value="<?=$key[8]?>">
     <input type="hidden" name="my_val" value="soal">
     <input type="hidden" name="id_user" value="<?=$id_user?>">
+
+    <input type="hidden" name="id_lowongan" value="<?=$_GET['id']?>">
+    <input type="hidden" name="id_pelamar" value="<?=$sql_lowongan['id_pelamar']?>">
+
     <div class="form-group ans">
         <label><input type="radio" name="jawab[<?=$key[0]?>]" value="a"> A. <?=$key[3]?></label>
     </div>
@@ -161,7 +165,6 @@ window.onload = function () {
 <script type="text/javascript">
     function simpan()
     {
-
       var form = $("#form_soal");
       var formData = new FormData(form[0]);
 

@@ -8,7 +8,7 @@
 
 <?php
 
-$ambil_kode=$koneksi->query("SELECT max(kode_soal) as maxKode FROM soal");
+/*$ambil_kode=$koneksi->query("SELECT max(kode_soal) as maxKode FROM soal");
 $data=$ambil_kode->fetch_assoc();
 $kodeBarang = $data['maxKode'];
 
@@ -17,16 +17,51 @@ $noUrut = (int) substr($kodeBarang, 3, 3);
 $noUrut++;
 
 $char = "SL";
-$newID = $char . sprintf("%03s", $noUrut);
+$newID = $char . sprintf("%03s", $noUrut);*/
 
 ?>
+
+<script type="text/javascript">
+	
+function generate_kode_soal(id_divisi) {
+	
+	$.ajax({
+        url : "<?php echo '../proses.php' ?>",
+        type: "POST",
+        data: {"id_divisi":id_divisi,"my_val":"kode_soal"},
+        success: function(data)
+        {
+        	console.log(data);
+        	$('#kode_soal').val(data);
+         },
+         error: function (jqXHR, textStatus, errorThrown)
+         {
+            alert("Error adding / update data");
+         }
+      });
+
+
+}
+
+</script>
 
 <h2>Tambah Soal</h2>
 
 <form method="post" enctype="multipart/form-data">
 	<div class="form-group col-md-8">
+		<label>Lowongan</label>
+		<?php $ambil=$koneksi->query("SELECT * FROM lowongan"); ?>
+		
+		<select name="lowongan" class="form-control" style="width: 30% !important;" onchange="generate_kode_soal(this.value)">
+ 			<option value="">--Pilih Lowongan--</option>
+			<?php while ($pecah=$ambil->fetch_assoc()) { ?>
+ 			<option value='<?php echo $pecah["id_lowongan"]; ?>'> <?php echo $pecah["nama_divisi"]; ?> </option>
+ 			<?php } ?>
+ 		</select>
+	</div>
+	<div class="form-group col-md-8">
 		<label>Kode Soal</label>
-		<input type="text" name="kode_soal" class="form-control" value="<?php echo $newID; ?>" readonly style="width: 30% !important;">
+		<input type="text" name="kode_soal" id="kode_soal" class="form-control" value="" readonly style="width: 30% !important;">
 	</div>
 	<div class="form-group col-md-8">
 		<label>Soal</label>
@@ -71,17 +106,6 @@ $newID = $char . sprintf("%03s", $noUrut);
  			<option value="c"> C </option>
  			<option value="d"> D </option>
  			<option value="e"> E </option>
- 		</select>
-	</div>
-	<div class="form-group col-md-8">
-		<label>Lowongan</label>
-		<?php $ambil=$koneksi->query("SELECT * FROM lowongan"); ?>
-		
-		<select name="lowongan" class="form-control" style="width: 30% !important;">
- 			<option value="">--Pilih Lowongan--</option>
-			<?php while ($pecah=$ambil->fetch_assoc()) { ?>
- 			<option value='<?php echo $pecah["id_lowongan"]; ?>'> <?php echo $pecah["nama_divisi"]; ?> </option>
- 			<?php } ?>
  		</select>
 	</div>
 	<div class="form-group col-md-8">

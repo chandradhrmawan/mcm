@@ -138,13 +138,11 @@ function hasil_soal($id_user)
 </div>
 <div class="row">
  <div class="col-md-7">
-  <div class="alert alert-info">
+  <div class="alert alert-info" style="margin-left: 200px !important;">
    <p>
     Note : <br>
-    
-    <strong>Selamat Anda Akan mengikuti Interview</strong><br>
-    <strong>Pada tanggal 17-12-2018 Pada jam 11.00 WIB</strong><br>
-    <strong>Bagi rekan rekan yang belum lolos pada tahap seleksi kali ini, kami mengucapkan terim kasih dan semoga sukses</strong><br>
+    <strong>Selamat Anda Akan mengikuti Interview Silahkan Tunggu Info Dari Kami Untuk Proses Selanjutnya</strong><br>
+    <strong>Untuk Pengumuman Interview Akan Di Kirimkan Lewat Email, Dan Bisa Di Lilhat Di <a href="pengumuman.php"><u>Aplikasi Ini</u></a></strong><br>
    </p>
   </div>
  </div>

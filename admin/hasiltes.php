@@ -24,9 +24,11 @@
 				Aksi
 			</th>
 		</tr>
-		 <?php $ambil = $koneksi->query("SELECT * FROM biodata_user  AS jawaban                       
-                                        JOIN lowongan ON biodata_user.id=jawaban.id
-                                        "); ?>
+		 <?php $nomor=1; $ambil = $koneksi->query("select a.*, b.skor, c.nama_divisi
+						from biodata_user a
+						left join jawaban b on a.id_pelamar = b.id_user
+						left join lowongan c on a.id_lowongan  = c.id_lowongan;
+                    	"); ?>
         <?php while($pecah = $ambil->fetch_assoc()) { ?>
 		<tr>
 			<td><?php echo $nomor; ?></td>

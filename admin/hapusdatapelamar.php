@@ -8,30 +8,24 @@ $sertifikat_keahlian = $pecah['sertifikat_keahlian'];
 $fotocopy_ktp = $pecah['fotocopy_ktp'];
 $npwp = $pecah['npwp'];
 
+$lampiran  = array(	'cv' => $cv,
+				   	'ijazah' => $ijazah,
+					'sertifikat_keahlian' => $sertifikat_keahlian,
+					'fotocopy_ktp' => $fotocopy_ktp,
+					'npwp' => $npwp,
+				);
 
+$root = $_SERVER['DOCUMENT_ROOT'].'/mcm/';
 
+foreach ($lampiran as $key => $value):
+	$path = $root.'uploads/'.$pecah['id_user'].'/'.$key.'/'.$value;
+	debux($path);
+	if (file_exists($path)){
+		unlink($path);
+	}
+endforeach;
 
-
-
-if (file_exists("../cv/$cv")) {
-	unlink("../cv/$cv");
-}
-elseif (file_exists("../ijazah/$ijazah")) {
-	unlink("../ijazah/$ijazah");
-}
-elseif (file_exists("../sertifikat_keahlian/$sertifikat_keahlian")) {
-	unlink("../sertifikat_keahlian/$sertifikat_keahlian");
-}
-elseif (file_exists("../fotocopy_ktp/$fotocopy_ktp")) {
-	unlink("../fotocopy_ktp/$fotocopy_ktp");
-}
-elseif (file_exists("../npwp/$npwp")) {
-	unlink("../npwp/$npwp");
-}
-
-
-
-$koneksi->query("UPDATE biodata_user SET status_pelamar ='2' WHERE id_pelamar='$_GET[id]'");
+$koneksi->query("DELETE FROM biodata_user WHERE id_pelamar='$_GET[id]'");
 
 echo "<script> alert('Pelamar berhasil dihapus');</script>";
 echo "<script>location='index.php?halaman=datapelamar';</script>";

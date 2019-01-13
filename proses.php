@@ -12,7 +12,19 @@ switch ($my_val) {
 
 	case 'register_user':
 		register_user($_POST,$_FILES);
-	break;	
+	break;
+
+	case 'kode_soal':
+		generate_kode_soal($_POST);
+	break;
+
+	case 'jadwal_interview':
+		jadwal_interview($_POST);
+	break;
+
+	case 'ubah_status_interview':
+		ubah_status_interview($_POST);
+	break;		
 	
 	default:
 		# do nothing
@@ -28,7 +40,11 @@ function insert_jabawan($data)
 	$jawaban = isset($_POST['jawaban']) ? $_POST['jawaban'] : null;
 	$jawab 	 = isset($_POST['jawab']) ? $_POST['jawab'] : null;
 	$id_user = isset($_POST['id_user']) ? $_POST['id_user'] : null;
+	
+	$id_pelamar = isset($_POST['id_pelamar']) ? $_POST['id_pelamar'] : null;
+	$id_lowongan = isset($_POST['id_lowongan']) ? $_POST['id_lowongan'] : null;
 
+	#insert tbl soal
 	foreach ($jawaban as $key => $value):
 
 		$value = (isset($value)) ? $value : null;
@@ -41,6 +57,12 @@ function insert_jabawan($data)
 		mysqli_query($conn, $sql);
 
 	endforeach;
+
+	#insert table interview
+	$sql_interview = "INSERT INTO interview (id_pelamar, id_lowongan, jadwal_interview,status)
+					  VALUES ( '$id_pelamar','$id_lowongan','','')";
+	mysqli_query($conn, $sql_interview);					  
+
 
 	mysqli_close($conn);
 
@@ -120,6 +142,62 @@ function register_user($data,$file)
 	#return status to view
 	echo ($result > 0) ? json_encode(array("status" => "1")) : json_encode(array("status" => "0"));
 
+}
+
+function generate_kode_soal($data)
+{
+	$conn = koneksi();
+
+	#kode lowongan
+	$query =  $conn->query("SELECT kode_lowongan FROM lowongan WHERE id_lowongan = '$data[id_divisi]' ");
+	$data = $query->fetch_assoc();
+	$kode_lowongan = substr($data['kode_lowongan'],4,6);
+
+	#kode soal
+	$ambil_kode=$conn->query("SELECT MAX(SUBSTR(kode_soal,8,9)) AS maxKode FROM soal;");
+	$data=$ambil_kode->fetch_assoc();
+	$noUrut = $data['maxKode'];
+	$noUrut+=1;
+	
+	#hasil
+	$kode_soal = 'SL-'.$kode_lowongan.'-00'.$noUrut;
+
+	echo $kode_soal;
+}
+
+function jadwal_interview($data)
+{
+
+	$conn = koneksi();
+
+	#update table interview
+	$sql_update = "UPDATE interview SET jadwal_interview = '$data[jadwal_interview]',
+									status = '1'
+									WHERE id_interview = '$data[id]'";
+	mysqli_query($conn, $sql_update);
+
+	$result = mysqli_affected_rows($conn);
+
+	#kirim email ke user
+	//proses
+
+
+	#return status to view
+	echo ($result > 0) ? json_encode(array("status" => "1")) : json_encode(array("status" => "0"));
+}
+
+function ubah_status_interview($data)
+{
+
+	$conn = koneksi();
+
+	#update table interview
+	$sql_update = "UPDATE interview SET status = '$data[status]'
+									WHERE id_interview = '$data[id]'";
+									
+	mysqli_query($conn, $sql_update);
+
+	echo json_encode(array("status" => "1"));
 }
 
  ?>

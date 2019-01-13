@@ -32,4 +32,16 @@ function koneksi()
 	return $conn;
 }
 
+function kode_lowongan()
+{	
+	$conn = koneksi();
+	$query = $conn->query("SELECT MAX(kode_lowongan) AS MAX FROM lowongan");
+	$data=$query->fetch_assoc();
+
+	$kode = substr($data['MAX'],4,6);
+	$kode+=1;
+	$kode = 'DIV-00'.$kode;
+	return $kode;
+}
+
 ?>
