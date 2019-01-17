@@ -62,7 +62,7 @@
           <div class="form-body">
             <div class="form-group">
               <label for="recipient-name" class="form-control-label">Tanggal Interview</label>
-              <input name="jadwal_interview" class="form-control" type="date" required="required">
+              <input name="jadwal_interview" class="form-control" type="datetime-local" required="required">
             </div>
           </div>
         </form>

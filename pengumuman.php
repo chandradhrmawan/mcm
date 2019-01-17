@@ -54,7 +54,7 @@ if (!isset($_SESSION["user"])) {
 
 <div class="container">
 
-<h2>Pengumuman Lulus Berkas</h2>
+<h2>Pengumuman </h2>
 
 <table class="table table-bordered">
     <thead>
@@ -65,8 +65,9 @@ if (!isset($_SESSION["user"])) {
             <th>Email</th>
             <th>Universitas</th>
             <th>Nama divisi</th>
-            <th>Status</th>
-            <th>Jadwal Interview</th>
+            <th>Status Berkas</th>
+            <th>Aksi</th>
+            
         </tr>
     </thead>
     <tbody>
@@ -78,6 +79,7 @@ if (!isset($_SESSION["user"])) {
                         'MENUNGGU HASIL')) AS status 
                         FROM biodata_user
                         LEFT JOIN lowongan ON biodata_user.id_lowongan=lowongan.id_lowongan
+                        -- JOIN interview ON biodata_user.id_pelamar=interview.id_pelamar
                         WHERE id_user='$id_user'"); ?>
 
         <?php while($pecah = $ambil->fetch_assoc()) { ?>
@@ -89,28 +91,28 @@ if (!isset($_SESSION["user"])) {
             <td><?php echo $pecah['nama_perguruan_tinggi']; ?></td>
             <td><?php echo $pecah['nama_divisi']; ?></td>
             <td><?php echo $pecah['status']; ?></td>
+            <td><a href="edit_biodata.php?id_pelamar=<?php echo $pecah['id_pelamar'] ?>">Edit</a></td>
+            <!-- <td><?php echo $pecah['status_interview']; ?></td> -->
+            <!-- <td><a href="cetak.php?id=<?php echo $id_user; ?>" class="btn btn-info">Cetak</a></td> -->
         </tr>
-        
         
     </tbody>
 </table>
 
 
 <?php if ($pecah['status_pelamar']== 1) : ?>
-            <div class="row">
-         <div class="col-md-7">
-          <div class="alert alert-info">
+        <div class="row">
+         <div class="col-md-12">
+          <div class="alert alert-info" align="center">
         
            <p>
             Note : <br>
-        <!-- Tapi di query ini harus di kasih paramerter  -->
+       
       
-      <?php   $idlowonganfix = $pecah['id_lowongan'];  ?>
+            <?php   $idlowonganfix = $pecah['id_lowongan'];  ?>
 
                 <?php $ambil=$koneksi->query("SELECT * FROM jadwal WHERE id_lowongan='$idlowonganfix'");   ?>
                 <?php while ($pecah=$ambil->fetch_assoc()) {  ?> 
-       <!-- ini jdnya bukan jadwal tapi lowongan  -->
-       <!-- abis dari ini langsung ke soal sesuai lowongan nya  -->
       
             <strong>Bagi Nama Yang Tercantum Diatas Dapat Mengikuti  Tes Ujian Online  </strong><br>
             <strong>Yang Diadakan Pada Tanggal <?php echo $pecah['tanggal_mulai']; ?></strong><br>
@@ -122,37 +124,105 @@ if (!isset($_SESSION["user"])) {
 
             <?php else : ?>
 
-                    <strong>Maaf link soal tidak bisa diakses </strong> <a href="#" class="btn btn-primary">Soal</a>
+            <strong>Maaf link soal tidak bisa diakses </strong> <a href="#" class="btn btn-primary">Soal</a>
             
             <?php endif ?>
 
            </p>
            <?php } ?>
+          </div>
+         </div>
+        
+
+<?php elseif ($pecah['status_pelamar']== 2) : ?>
+     <div class="col-md-12">
+          <div class="alert alert-info" align="center">
+<?php echo "Maaf anda belum lolos pada tahap seleksi kali ini, kami mengucapkan terima kasih dan semoga sukses" ?>
+ </div> 
+</div>
+<?php endif ?>     
+
+</div>
+
+<?php } ?>
+  
+
+
+
+
+ <?php $ambil =  $koneksi->query("SELECT * FROM interview 
+                                    JOIN biodata_user ON interview.id_pelamar=biodata_user.id_pelamar 
+                                    WHERE id_user='$id_user'"); ?>
+             <?php while($interview = $ambil->fetch_assoc()) { ?>
+
+<div class="row">
+    
+  <div class="col-md-12">
+          <div class="alert alert-info" align="center">
+            
+            Note :<br>
+            <strong>Jadwal Interview Anda :
+
+            -Tanggal : <?php echo $interview['jadwal_interview']; ?><br>
+
+            -Silahkan persiapkan diri anda untuk melakukan interview pada tanggal diatas <br>   
+            -Pihak MCM akan menghubungi anda melalui Skype dengan ID Skype yang telah anda isi
+
+            </strong>
+                   </div>
+         </div>
+</div>
+
+           <?php } ?>
+         
+   
        
 
 
 
+            <?php $ambil = $koneksi->query("SELECT a.*,
+                                            CASE 
+                                            WHEN a.status= 2 THEN 'Lulus Interview'
+                                            WHEN a.status= 3 THEN 'Gagal Interviw'
+                                            ELSE 'Menunggu Status Penilaian'
+                                            END AS 'status_hasil'
+                                            FROM interview a
+                                            LEFT JOIN biodata_user b ON a.id_pelamar = b.id_pelamar
+                                            WHERE id_user='$id_user'");  ?>
+
+            <?php while($hasil = $ambil->fetch_assoc()) { ?>
+
+         <?php if ($hasil['status_hasil']== 'Lulus Interview'): ?>
+                
+             
+         <div class="row">
+          <div class="col-md-12">
+          <div class="alert alert-info" align="center">
+           
+            <h4>HASIL INTERVIEW :</h4><br>
+
+            <h6 style="color: red; font-size: 30px;">"<?php echo $hasil['status_hasil']; ?>"</h6>
+
+            <strong>SILAHKAN DOWNLOAD FILE DIBAWAH INI UNTUK MELAKUKAN NEGOSIASI DI PERUSAHAAN </strong><br>
+
+            <a href="cetak.php?id=<?php echo $id_user; ?>" class="btn btn-success btn-lg">CETAK</a>
+
           </div>
+          </div>
+           <?php endif ?>
+            <?php } ?>
          </div>
-        </div>
-
-<?php else: ?>
-<?php echo "Maaf anda belum lolos pada tahap seleksi kali ini, kami mengucapkan terim kasih dan semoga sukses" ?>
-<?php endif ?>
-
-
-
-<?php } ?>
-
-
+          
+         
+         
+        
 
     </div>
 
     </section>
 
-    <?php include 'footer.php'; ?>
-
-
+    
+<?php include 'footer.php'; ?>
 
    <!-- JavaScript -->
         <script src="js/jquery-1.12.1.min.js"></script>

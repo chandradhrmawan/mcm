@@ -41,9 +41,6 @@ function hasil_soal($id_user)
 
  ?>
 
-
-
-
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
 <!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
@@ -92,8 +89,6 @@ function hasil_soal($id_user)
           }
       </style>
 
-
-        
 <div class="container head-top">
 
   <h3>Berikut Hasil Nilai Skor Anda</h3>
@@ -128,28 +123,39 @@ function hasil_soal($id_user)
       <td class="gray">Nilai Anda</td>
       <td><?=$hasil['nilai_anda']?></td>
     </tr>
-
-
-
   </table>
 
-
-
 </div>
+
+<?php if ($hasil['jawaban_salah'] >= $hasil['jawaban_benar']): ?>
+  <div class="row">
+ <div class="col-md-7">
+  <div class="alert alert-info" style="margin-left: 200px !important;">
+   <p>
+    Note : <br>
+    <strong>Maaf anda belum lolos pada tahap seleksi kali ini, kami mengucapkan terima kasih dan semoga sukses</strong>
+   </p>
+  </div>
+ </div>
+</div>
+
+
+<?php else: ?>
+
 <div class="row">
  <div class="col-md-7">
   <div class="alert alert-info" style="margin-left: 200px !important;">
    <p>
     Note : <br>
     <strong>Selamat Anda Akan mengikuti Interview Silahkan Tunggu Info Dari Kami Untuk Proses Selanjutnya</strong><br>
-    <strong>Untuk Pengumuman Interview Akan Di Kirimkan Lewat Email, Dan Bisa Di Lilhat Di <a href="pengumuman.php"><u>Aplikasi Ini</u></a></strong><br>
+    <strong>Untuk Pengumuman Interview Bisa Di Lilhat Di <a href="pengumuman.php"><u>Aplikasi Ini</u></a></strong><br>
    </p>
   </div>
  </div>
 </div>
+
+<?php endif ?>
 </section>
-
-
 
 <?php include 'footer.php'; ?>
 

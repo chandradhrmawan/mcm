@@ -1,4 +1,4 @@
-<h2> Jadwal Interview </h2>
+<h2> Hasil Interview </h2>
 
 <table class="table table-bordered">
  <thead>
@@ -18,9 +18,9 @@
 										d.skor,
 										b.id_user,
 									CASE 
-										WHEN a.status = 2 THEN 'Lulus Interview'
-										WHEN a.status = 3 THEN 'Gagal Interviw'
-										ELSE 'Menunggu Status Pelinalaian'
+										WHEN a.status= 2 THEN 'Lulus Interview'
+										WHEN a.status= 3 THEN 'Gagal Interviw'
+										ELSE 'Menunggu Status Penilaian'
 									END AS 'status_hasil'
 									FROM
 										interview a

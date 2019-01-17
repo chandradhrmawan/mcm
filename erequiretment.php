@@ -127,7 +127,7 @@ if($cek_duplikasi->num_rows != 0){
             <option value="S2">S2</option>
          </select>
          
-          <input type="text" placeholder="Program Studi" name="perguruan_tinggi" id="perguruan_tinggi" class="form-control"> 
+          <input type="text" placeholder="Program Studi" name="pendidkan" id="pendidikan" class="form-control"> 
     </div>
     
     <div class="form-group">

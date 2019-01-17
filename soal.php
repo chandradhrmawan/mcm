@@ -70,10 +70,10 @@ endif;
     }
 window.onload = function () {
 //this is where you can modifies the time amount.
-    var thirtyminutes = 60 * 30,
+    var tenminutes = 60 * 10,
     
         display = document.querySelector('#time');
-    a = startTimer(thirtyminutes, display);
+    a = startTimer(tenminutes, display);
 };
 </script>
 
@@ -101,7 +101,7 @@ window.onload = function () {
 
 
 <div class="container head-top">
-    <div>Waktu Anda Tersisa <span id="time">30:00</span> minutes!</div>
+    <div>Waktu Anda Tersisa <span id="time">10:00</span> minutes!</div>
     <form name="form" id="form_soal" method="post">
 
 <?php

@@ -21,15 +21,15 @@
  		</select>
 	</div>
 
-
+	<!-- HARUS DI CHROME KALO MAU PAKE JAM -->
 	<div class="form-group col-md-8">
 		<label>Tanggal mulai</label>
-		<input type="date" name="tanggal_mulai">
+		<input type="datetime-local" name="tanggal_mulai">
 	</div>
 
 	<div class="form-group col-md-8">
 		<label>Tanggal akhir</label>
-		<input type="date" name="tanggal_akhir">
+		<input type="datetime-local" name="tanggal_akhir">
 	</div>
 
 
