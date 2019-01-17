@@ -24,6 +24,18 @@ switch ($my_val) {
 
 	case 'ubah_status_interview':
 		ubah_status_interview($_POST);
+	break;
+
+	case 'tambah_lowongan':
+		tambah_lowongan($_POST);
+	break;
+
+	case 'edit_lowongan':
+		edit_lowongan($_POST);
+	break;
+
+	case 'edit_soal':
+		edit_soal($_POST);
 	break;		
 	
 	default:
@@ -144,12 +156,12 @@ function register_user($data,$file)
 
 }
 
-function generate_kode_soal($data)
+function generate_kode_soal($arr)
 {
 	$conn = koneksi();
 
 	#kode lowongan
-	$query =  $conn->query("SELECT kode_lowongan FROM lowongan WHERE id_lowongan = '$data[id_divisi]' ");
+	$query =  $conn->query("SELECT kode_lowongan FROM lowongan WHERE id_lowongan = '$arr[id_divisi]' ");
 	$data = $query->fetch_assoc();
 	$kode_lowongan = substr($data['kode_lowongan'],4,6);
 
@@ -162,7 +174,11 @@ function generate_kode_soal($data)
 	#hasil
 	$kode_soal = 'SL-'.$kode_lowongan.'-00'.$noUrut;
 
-	echo $kode_soal;
+	if($arr['return']==TRUE){
+		return $kode_soal;
+	}else{
+		echo $kode_soal;	
+	}
 }
 
 function jadwal_interview($data)
@@ -199,5 +215,112 @@ function ubah_status_interview($data)
 
 	echo json_encode(array("status" => "1"));
 }
+
+function tambah_lowongan($data)
+{	
+	$conn = koneksi();
+
+    $kode_lowongan  	= $data['kode_lowongan'];
+    $nama_divisi 		= $data['nama_divisi'];
+    $tanggal_mulai 		= date("Y-m-d",strtotime($data['tanggal_mulai']));
+    $tanggal_selesai 	= date("Y-m-d",strtotime($data['tanggal_selesai']));
+
+    $insert_header      = "INSERT INTO lowongan (kode_lowongan,nama_divisi,tanggal_mulai,tanggal_selesai)
+    					  VALUES ('$kode_lowongan','$nama_divisi','$tanggal_mulai','$tanggal_selesai')"; 
+	mysqli_query($conn, $insert_header);
+
+	foreach ($data['nama_persyaratan'] as $key => $value):
+		mysqli_query($conn, "INSERT INTO persyaratan (kode_lowongan,nama_persyaratan) VALUES ('$kode_lowongan','$value')");
+	endforeach;
+
+	echo json_encode(array("status" => "1"));
+}
+
+function edit_lowongan($data)
+{
+	$conn = koneksi();
+	
+	$kode_lowongan  		= $data['kode_lowongan'];
+    $nama_divisi 			= $data['nama_divisi'];
+    $tanggal_mulai 			= date("Y-m-d",strtotime($data['tanggal_mulai']));
+    $tanggal_selesai 		= date("Y-m-d",strtotime($data['tanggal_selesai']));
+    $nama_persyaratan_new	= (isset($data['nama_persyaratan_new'])) ? $data['nama_persyaratan_new'] : null;
+    $nama_persyaratan 		= (isset($data['nama_persyaratan'])) ? $data['nama_persyaratan'] : null;
+
+    $update_header			= "UPDATE lowongan SET  nama_divisi 	= '$nama_divisi',
+    										   		tanggal_mulai	= '$tanggal_mulai',
+    										   		tanggal_selesai	= '$tanggal_selesai'
+    									   		WHERE
+    									   			kode_lowongan 	= '$kode_lowongan'";
+    mysqli_query($conn, $update_header);
+
+    if(!empty($nama_persyaratan_new)):
+    	foreach ($nama_persyaratan as $key => $value):
+			mysqli_query($conn, "UPDATE persyaratan SET   nama_persyaratan 	= '$value' 
+													WHERE id_persyaratan	= '$key'");
+		endforeach;
+	endif;
+
+	if(!empty($nama_persyaratan_new)):
+		foreach ($nama_persyaratan_new as $key => $value):
+			mysqli_query($conn, "INSERT INTO persyaratan (kode_lowongan,nama_persyaratan) 
+										VALUES ('$kode_lowongan','$value')");
+		endforeach;
+	endif;
+
+
+	echo json_encode(array("status" => "1"));
+}
+
+function edit_soal($data)
+{
+	$conn = koneksi();
+
+	/*debux($data['a']['88']);die();
+	debux($data);die();*/
+	
+	$soal 			= (isset($data['soal'])) ? $data['soal'] : null;
+	$soal_new		= (isset($data['soal_new'])) ? $data['soal_new'] : null;
+	$id_lowongan 	= $data['id_lowongan'];
+
+	if(!empty($soal)):
+		foreach ($soal as $key => $value):
+			mysqli_query($conn, "UPDATE soal SET 	nama_soal 	= '$value',
+													a 			= '".$data['a'][$key]."',
+													b 			= '".$data['b'][$key]."',
+													c 			= '".$data['c'][$key]."',
+													d 			= '".$data['d'][$key]."',
+													e 			= '".$data['e'][$key]."',
+													jawaban 	= '".$data['jawaban'][$key]."',
+													id_lowongan = '$id_lowongan'
+											WHERE 	id	= '$key'");
+		endforeach;
+	endif;
+
+	if(!empty($soal_new)):
+		foreach ($soal_new as $key => $value):
+			
+			#call func generate kode_soal
+			$kode_soal = generate_kode_soal(array('id_divisi'=>$id_lowongan,'return'=>TRUE));
+
+			mysqli_query($conn, "INSERT INTO soal (kode_soal,nama_soal,a,b,c,d,e,jawaban,id_lowongan) 
+										VALUES ('$kode_soal',
+										'$value',
+										'".$data['a_new'][$key]."',
+										'".$data['b_new'][$key]."',
+										'".$data['c_new'][$key]."',
+										'".$data['d_new'][$key]."',
+										'".$data['e_new'][$key]."',
+										'".$data['jawaban_new'][$key]."',
+										'$id_lowongan'
+										)")or die (mysqli_error($conn)); 
+		endforeach;
+	endif;
+
+	echo json_encode(array("status" => "1"));
+
+}
+
+
 
  ?>

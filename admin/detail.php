@@ -3,6 +3,11 @@
 $ambil = $koneksi->query("SELECT * FROM biodata_user WHERE id_pelamar='$_GET[id]'");
 $pecah = $ambil->fetch_assoc();
 
+$query = $koneksi->query("SELECT * FROM lowongan WHERE id_lowongan='$pecah[id_lowongan]'");
+$data  = $query->fetch_assoc();
+$detail_persyaratan = $koneksi->query("SELECT * FROM persyaratan WHERE kode_lowongan='$data[kode_lowongan]'");
+
+
 $base_path = '../uploads/'.$pecah['id_user'].'/';
 
 ?>
@@ -81,23 +86,46 @@ $base_path = '../uploads/'.$pecah['id_user'].'/';
 <a href="<?=$base_path?>npwp/<?php echo $pecah['npwp']; ?>" target="__blank"><img src="<?=$base_path?>npwp/<?php echo $pecah['npwp']; ?>" width="200"></a>
 </div>
 
-</div>  
-
+</div> 
+<br/>
+<br/> 
+<hr/>
       <form method="post">
-	<div class="form-group">
-		<label>Status</label>
-		<select class="form-control" name="status_pelamar">
-			<option value="">Pilih Status</option>
-			<option value="1">Diterima</option>
-			<option value="2">Ditolak</option>
-		</select>
-	</div>
+
+      <div class="form-group">
+        <label>List Persyaratan</label><br>
+        
+        <?php while($dtl =  $detail_persyaratan->fetch_assoc()): ?>
+          <input type="checkbox" name="persyaratan[]" value="1"> <?=$dtl['nama_persyaratan']?><br>
+        <?php endwhile; ?>
+      
+      </div>
+
+
+    	<div class="form-group">
+    		<label>Status</label>
+    		<select class="form-control" name="status_pelamar">
+    			<option value="">Pilih Status</option>
+    			<option value="1">Diterima</option>
+    			<option value="2">Ditolak</option>
+    		</select>
+    	</div>
 	<button class="btn btn-primary" name="proses">Proses</button>
 </form>     
 <?php 
 
 if (isset($_POST["proses"])) {
- 
+    
+
+    if(!isset($_POST['persyaratan'])){
+      echo "<script>alert('List Persyaratan Belum Di Checklist');</script>";
+      die();
+    }
+
+    if(count(($_POST['persyaratan'])) != $detail_persyaratan->num_rows){
+      echo "<script>alert('List Persyaratan Belum Lengkap');</script>";
+      die();
+    }
 
     $statuspelamar = $_POST["status_pelamar"];
     $koneksi->query("UPDATE biodata_user SET status_pelamar='$statuspelamar' WHERE id_pelamar='$_GET[id]'");

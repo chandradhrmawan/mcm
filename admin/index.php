@@ -27,6 +27,7 @@ if (!isset($_SESSION['admin']))
     <link href="assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
         <!-- CUSTOM STYLES-->
     <link href="assets/css/custom.css" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/jquery-ui.css">
      <!-- GOOGLE FONTS-->
    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 </head>
@@ -166,7 +167,11 @@ font-size: 16px;"> <a href="logout.php" class="btn btn-danger square-btn-adjust"
                 else if ($_GET['halaman']=="hasilinterview") 
                     {
                         include 'hasilinterview.php';
-                    }    
+                    }
+                else if ($_GET['halaman']=="detail_soal") 
+                    {
+                        include 'detail_soal.php';
+                    }        
     
 
                 }
@@ -184,15 +189,18 @@ font-size: 16px;"> <a href="logout.php" class="btn btn-danger square-btn-adjust"
     <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
     <!-- JQUERY SCRIPTS -->
     <script src="assets/js/jquery-1.10.2.js"></script>
+    <script src="assets/js/jquery-1.12.4.js"></script>
+    <script src="assets/js/jquery-ui.js"></script>
+    <script src="assets/js/sweetalert.min.js"></script>
       <!-- BOOTSTRAP SCRIPTS -->
     <script src="assets/js/bootstrap.min.js"></script>
     <!-- METISMENU SCRIPTS -->
     <script src="assets/js/jquery.metisMenu.js"></script>
      <!-- MORRIS CHART SCRIPTS -->
-     <script src="assets/js/morris/raphael-2.1.0.min.js"></script>
-    <script src="assets/js/morris/morris.js"></script>
+     <!-- <script src="assets/js/morris/raphael-2.1.0.min.js"></script> -->
+    <!-- <script src="assets/js/morris/morris.js"></script> -->
       <!-- CUSTOM SCRIPTS -->
-    <script src="assets/js/custom.js"></script>
+    <!-- <script src="assets/js/custom.js"></script> -->
     
    
 </body>

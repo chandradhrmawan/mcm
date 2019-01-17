@@ -2,6 +2,7 @@
 <?php 
 $ambil = $koneksi->query("SELECT * FROM biodata_user WHERE id_pelamar='$_GET[id]'");
 $pecah = $ambil->fetch_assoc();
+$base_path = '../uploads/'.$pecah['id_user'].'/';
 
 // echo "<pre>";
 // print_r($pecah);
@@ -57,32 +58,35 @@ $pecah = $ambil->fetch_assoc();
 <div class="row">
 <div class="col-sm-5">   
 <h3>Data CV</h3>
-<a href="../cv/<?php echo $pecah['cv']; ?>"> ../cv/<?php echo $pecah['cv']; ?> </a>
+<a href="<?=$base_path?>cv/<?php echo $pecah['cv']; ?>" target="__blank"> <?php echo $pecah['cv']; ?> </a>
 
 </div>   
 
 <div class="col-sm-5">   
 <h3>Data Ijazah</h3>
-<img src="../ijazah/<?php echo $pecah['ijazah']; ?>" width="200">
+<a href="<?=$base_path?>ijazah/<?php echo $pecah['ijazah']; ?>" target="__blank"><img src="<?=$base_path?>ijazah/<?php echo $pecah['ijazah']; ?>" width="200"></a>
 </div>
 
 
 <div class="col-sm-5">   
 <h3>Data Sertifikat Keahlian</h3>
-<img src="../sertifikat_keahlian/<?php echo $pecah['sertifikat_keahlian']; ?>" width="200">
+<a href="<?=$base_path?>sertifikat_keahlian/<?php echo $pecah['sertifikat_keahlian']; ?>" target="__blank"><img src="<?=$base_path?>sertifikat_keahlian/<?php echo $pecah['sertifikat_keahlian']; ?>" target="__blank" width="200"></a>
 </div>
 
 <div class="col-sm-5">   
 <h3>Data FotoCopy Ktp</h3>
-<img src="../fotocopy_ktp/<?php echo $pecah['fotocopy_ktp']; ?>" width="200">
+<a href="<?=$base_path?>fotocopy_ktp/<?php echo $pecah['fotocopy_ktp']; ?>" target="__blank"><img src="<?=$base_path?>fotocopy_ktp/<?php echo $pecah['fotocopy_ktp']; ?>" width="200"></a>
 </div>
 
 <div class="col-sm-5">   
 <h3>Data NPWP</h3>
-<img src="../npwp/<?php echo $pecah['npwp']; ?>" width="200">
+<a href="<?=$base_path?>npwp/<?php echo $pecah['npwp']; ?>" target="__blank"><img src="<?=$base_path?>npwp/<?php echo $pecah['npwp']; ?>" width="200"></a>
 </div>
 
-</div>  
+</div> 
+<br/>
+<br/> 
+<hr/> 
 
       
 

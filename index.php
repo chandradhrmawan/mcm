@@ -131,9 +131,18 @@ include 'koneksi.php';
         <tr>
             <td><?php echo $nomor; ?></td>
             <td><?php echo $pecah['nama_divisi']; ?></td>
-            <td><?php echo $pecah['tanggal_mulai']; ?></td>
-            <td><?php echo $pecah['tanggal_selesai']; ?></td>
-            <td><?php echo $pecah['persyaratan']; ?></td>
+            <td><?php echo date("d-F-Y",strtotime($pecah['tanggal_mulai'])); ?></td>
+            <td><?php echo date("d-F-Y",strtotime($pecah['tanggal_selesai'])); ?></td>
+            <td>
+                <?php
+                    $persyaratan_detail =  get_persyaratan($pecah['kode_lowongan']);
+                    while($dtl = $persyaratan_detail->fetch_assoc()) {
+                        echo "<ul>";
+                            echo "<li>".$dtl['nama_persyaratan']."</li>";
+                        echo "</ul>";
+                    }
+                 ?>        
+            </td>
             <td><a href="erequiretment.php?id=<?php echo $pecah['id_lowongan']; ?>">Daftar</a></td>
             
         </tr>

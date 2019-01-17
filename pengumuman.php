@@ -99,7 +99,6 @@ if (!isset($_SESSION["user"])) {
     </tbody>
 </table>
 
-
 <?php if ($pecah['status_pelamar']== 1) : ?>
         <div class="row">
          <div class="col-md-12">
@@ -109,7 +108,7 @@ if (!isset($_SESSION["user"])) {
             Note : <br>
        
       
-            <?php   $idlowonganfix = $pecah['id_lowongan'];  ?>
+            <?php   $idlowonganfix = $pecah['id_lowongan']; ?>
 
                 <?php $ambil=$koneksi->query("SELECT * FROM jadwal WHERE id_lowongan='$idlowonganfix'");   ?>
                 <?php while ($pecah=$ambil->fetch_assoc()) {  ?> 

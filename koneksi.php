@@ -44,4 +44,11 @@ function kode_lowongan()
 	return $kode;
 }
 
+function get_persyaratan($kode_lowongan)
+{
+	$conn = koneksi();
+	$query = $conn->query("SELECT * FROM persyaratan WHERE kode_lowongan = '$kode_lowongan'");
+	return $query;
+}
+
 ?>
